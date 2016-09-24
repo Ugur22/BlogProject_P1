@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    {% block stylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendor/css/style.css') }}">
+    {% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-default">

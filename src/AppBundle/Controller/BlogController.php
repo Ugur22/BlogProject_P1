@@ -11,8 +11,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Blog;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -42,18 +46,40 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog/{blogName}")
+     * @Route("/blog")
      */
 
-    public function showAction($blogName)
+    public function showAction(Request $request)
     {
-        $templating = $this->container->get('templating');
-        $html = $templating->render('blog/show.html.twig', [
-            'name' => $blogName
-        ]);
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find(2);
+        $blog = new Blog();
+        $blog->setTitle('write a blog post');
+        $blog->setText('helloo');
+        $blog->setImg('funny.png');
+        $blog->setDate(new \DateTime());
+        $blog->setUser($user);
 
+        $form = $this->createFormBuilder($blog)
+            ->add('title', TextType::class)
+            ->add('text', TextType::class)
+            ->add('date', DateType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Blogpost'))
+            ->getForm();
 
-        return new Response($html);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $blog = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blog);
+            $em->flush();
+        }
+
+        return $this->render('blog/show.html.twig', array(
+            'form' => $form->createView(),
+        ));
 
     }
 }

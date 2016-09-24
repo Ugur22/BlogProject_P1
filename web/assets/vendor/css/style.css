@@ -1,0 +1,12 @@
+#createForm .form-group {
+    display: -webkit-box;
+    margin: 10px;
+}
+
+#createForm button.btn.btn-default {
+    margin: 10px;
+}
+
+h1 {
+    margin: 10px;
+}
