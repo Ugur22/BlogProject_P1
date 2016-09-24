@@ -28,3 +28,20 @@ div#form {
 textarea {
     resize: none;
 }
+
+.thumbnail a>img, .thumbnail>img {
+    width: 500px;
+    height: 400px;
+}
+
+
+.row {
+    margin: 0 auto;
+    width: 640px;
+}
+
+.col-sm-6.col-md-4 {
+    width: 660px;
+    box-shadow: 10px 10px 5px #888888;
+    margin-bottom: 26px;
+}
