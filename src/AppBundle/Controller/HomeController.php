@@ -25,7 +25,6 @@ class HomeController extends Controller
 
         ]);
 
-
         return new Response($html);
 
     }
