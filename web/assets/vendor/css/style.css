@@ -8,5 +8,23 @@
 }
 
 h1 {
+    text-align: -webkit-center;
     margin: 10px;
+}
+
+.form-blog {
+    margin: 20px;
+}
+
+input {
+    width: 200px;
+}
+
+div#form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+textarea {
+    resize: none;
 }
