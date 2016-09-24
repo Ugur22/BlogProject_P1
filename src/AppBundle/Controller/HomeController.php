@@ -15,14 +15,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
+
+
     /**
      * @Route("/")
      */
     public function indexAction()
     {
+        $em = $this->getDoctrine();
+        $blogs = $em->getRepository('AppBundle:Blog')
+            ->findAll();
+
         $templating = $this->container->get('templating');
         $html = $templating->render('home/index.html.twig', [
-
+            'blogs' => $blogs,
         ]);
 
         return new Response($html);

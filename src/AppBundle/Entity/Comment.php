@@ -29,7 +29,7 @@ class Comment
      */
     private $date;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $text;
 
@@ -44,10 +44,7 @@ class Comment
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+
 
     /**
      * @return mixed
