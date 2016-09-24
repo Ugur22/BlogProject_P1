@@ -3,16 +3,19 @@
  * Created by PhpStorm.
  * User: uertas
  * Date: 9/24/16
- * Time: 1:10 PM
+ * Time: 1:14 PM
  */
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 
-class category
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="comment")
+ */
+class Comment
 {
 
     /**
@@ -22,9 +25,13 @@ class category
      */
     private $id;
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+    /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    private $text;
 
     /**
      * @return mixed
@@ -45,17 +52,33 @@ class category
     /**
      * @return mixed
      */
-    public function getName()
+    public function getDate()
     {
-        return $this->name;
+        return $this->date;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $date
      */
-    public function setName($name)
+    public function setDate($date)
     {
-        $this->name = $name;
+        $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param mixed $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
     }
 
 }
