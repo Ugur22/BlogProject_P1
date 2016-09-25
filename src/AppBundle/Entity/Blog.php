@@ -49,7 +49,7 @@ class Blog
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category")
      * @ORM\JoinTable(name="blog_category",
-     * joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id")},
+     * joinColumns={@ORM\JoinColumn(name="blog_id",referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
      *
      * )
@@ -58,7 +58,7 @@ class Blog
 
     public function addCategory(Category $category)
     {
-        $category->addBlog($this);
+//        $category->addBlog($this);
         $this->categories[] = $category;
     }
 

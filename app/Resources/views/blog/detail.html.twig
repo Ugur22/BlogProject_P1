@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Detail</h1>
+    <div id="detailBlog">
+        <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}">
+        <h3>{{ blog.title }}</h3>
+        <p>{{ blog.text |length >50 ? blog.text |slice(0,50) ~ '...': blog.text }}</p>
+        <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
+        <span>{{ blog.date|date('d-m-y') }}</span>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

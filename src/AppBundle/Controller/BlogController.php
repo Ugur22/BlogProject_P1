@@ -26,19 +26,43 @@ class BlogController extends Controller
 {
 
     /**
+     * @Route("/blog/detail/{blog_id}")
+     */
+    public function detailAction($blog_id)
+    {
+        $blog = $this->getDoctrine()
+            ->getRepository('AppBundle:Blog')
+            ->findOneBy(['id' => $blog_id]);
+
+
+        if (!$blog) {
+            throw  $this->createNotFoundException(
+                'No blog found for id ' . $blog_id
+            );
+        }
+
+        $templating = $this->container->get('templating');
+        $html = $templating->render('blog/detail.html.twig', [
+            'blog' => $blog
+
+        ]);
+
+        return new Response($html);
+    }
+
+    /**
      * @Route("/blog")
      */
 
     public function showAction(Request $request)
     {
 
-
-
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find(2);
+
+
         $blog = new Blog();
-//        $blog->setImg('funny.png');
         $blog->setDate(new \DateTime());
         $blog->setUser($user);
 

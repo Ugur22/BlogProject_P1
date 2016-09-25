@@ -23,8 +23,19 @@ class Category
 
     public function addBlog(Blog $blog)
     {
+        $blog->addCategory($this);
         $this->blog[] = $blog;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getBlog()
+    {
+        return $this->blog;
+    }
+
 
     /**
      * @ORM\Id

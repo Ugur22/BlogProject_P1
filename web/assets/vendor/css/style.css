@@ -29,11 +29,10 @@ textarea {
     resize: none;
 }
 
-.thumbnail a>img, .thumbnail>img {
+.thumbnail a > img, .thumbnail > img {
     width: 500px;
     height: 400px;
 }
-
 
 .row {
     margin: 0 auto;
@@ -49,4 +48,8 @@ textarea {
 div#author {
     width: 89px;
     float: right;
+}
+
+div#detailBlog {
+    margin-left: 53px;
 }

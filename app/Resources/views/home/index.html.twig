@@ -16,7 +16,7 @@
                             <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
                             <span>{{ blog.date|date('d-m-y') }}</span>
                         </div>
-                        <p><a href="#" class="btn btn-primary" role="button">Read more...</a></p>
+                        <p><a href="/blog/detail/{{ blog.id }} " class="btn btn-primary" role="button">Read more...</a></p>
                     </div>
                 </div>
             </div>
