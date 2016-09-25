@@ -31,6 +31,9 @@ class BlogController extends Controller
 
     public function showAction(Request $request)
     {
+
+
+
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find(2);

@@ -8,12 +8,14 @@
         {% for blog in blogs %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}" alt="...">
+                    <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}">
                     <div class="caption">
                         <h3>{{ blog.title }}</h3>
-                        <p>{{ blog.text }}</p>
-                        <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
-                        <span>{{ blog.date|date('d-m-y') }}</span>
+                        <p>{{ blog.text |length >50 ? blog.text |slice(0,50) ~ '...': blog.text }}</p>
+                        <div id="author">
+                            <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
+                            <span>{{ blog.date|date('d-m-y') }}</span>
+                        </div>
                         <p><a href="#" class="btn btn-primary" role="button">Read more...</a></p>
                     </div>
                 </div>

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,6 +17,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Blog
 {
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
+
 
     /**
      * @ORM\Id
@@ -38,6 +45,39 @@ class Blog
      * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinTable(name="blog_category",
+     * joinColumns={@ORM\JoinColumn(name="blog_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
+     *
+     * )
+     */
+    private $categories;
+
+    public function addCategory(Category $category)
+    {
+        $category->addBlog($this);
+        $this->categories[] = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
 
     /**
      * @return mixed

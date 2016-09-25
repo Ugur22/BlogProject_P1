@@ -19,6 +19,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
 
+    private $blog;
+
+    public function addBlog(Blog $blog)
+    {
+        $this->blog[] = $blog;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
