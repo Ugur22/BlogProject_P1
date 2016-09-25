@@ -34,6 +34,15 @@ textarea {
     height: 400px;
 }
 
+textarea#form_text {
+    height: 400px;
+}
+
+#detailBlog img {
+    width: 50%;
+    height: 400px;
+}
+
 .row {
     margin: 0 auto;
     width: 640px;

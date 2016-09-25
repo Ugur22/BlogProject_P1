@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Blog;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -66,6 +67,7 @@ class BlogController extends Controller
         $blog->setDate(new \DateTime());
         $blog->setUser($user);
 
+
         $form = $this->createFormBuilder($blog)
             ->add('title', TextType::class, array(
                 'attr' => array('class' => 'form-control', 'placeholder' => 'choose a title'),
@@ -75,6 +77,12 @@ class BlogController extends Controller
             ))
             ->add('img', FileType::class, array(
                 'attr' => array('class' => 'fileinput-new'),
+            ))
+            ->add('categories', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Category',
+                'choice_label' => 'name',
+                'multiple' => TRUE,
+                'expanded' => TRUE
             ))
             ->add('date', DateType::class)
             ->add('save', SubmitType::class, array('label' => 'Create Blogpost', 'attr' => array('class' => 'btn btn-default')))
@@ -89,6 +97,8 @@ class BlogController extends Controller
                 $this->getParameter('images_directory'),
                 $fileName
             );
+
+
 
             $blog->setImg($fileName);
 
