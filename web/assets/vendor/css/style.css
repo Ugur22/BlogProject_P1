@@ -20,9 +20,8 @@ input {
     width: 200px;
 }
 
-div#form {
+#detailBlog p {
     width: 50%;
-    margin: 0 auto;
 }
 
 textarea {
@@ -32,6 +31,10 @@ textarea {
 .thumbnail a > img, .thumbnail > img {
     width: 500px;
     height: 400px;
+}
+
+.thumbnail {
+    border: 0px;
 }
 
 textarea#form_text {
@@ -50,7 +53,7 @@ textarea#form_text {
 
 .col-sm-6.col-md-4 {
     width: 660px;
-    box-shadow: 10px 10px 5px #888888;
+    box-shadow: 10px 10px 5px 10px #888888;
     margin-bottom: 26px;
 }
 
@@ -61,4 +64,9 @@ div#author {
 
 div#detailBlog {
     margin-left: 53px;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
 }

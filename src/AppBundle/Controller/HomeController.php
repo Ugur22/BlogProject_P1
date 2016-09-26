@@ -9,16 +9,15 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Blog;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
 
-
     /**
-     * @Route("/")
+     * @Route("/", name="home")
      */
     public function indexAction()
     {
@@ -26,12 +25,11 @@ class HomeController extends Controller
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findAll();
 
-        $templating = $this->container->get('templating');
-        $html = $templating->render('home/index.html.twig', [
-            'blogs' => $blogs,
+
+        return $this->render('home/index.html.twig', [
+            'blogs' => $blogs
         ]);
 
-        return new Response($html);
 
     }
 

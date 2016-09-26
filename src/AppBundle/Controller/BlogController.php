@@ -20,14 +20,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class BlogController extends Controller
 {
 
     /**
-     * @Route("/blog/detail/{blog_id}")
+     * @Route("/blog/detail/{blog_id}", name="blog_detail")
      */
     public function detailAction($blog_id)
     {
@@ -42,17 +41,15 @@ class BlogController extends Controller
             );
         }
 
-        $templating = $this->container->get('templating');
-        $html = $templating->render('blog/detail.html.twig', [
+
+        return $this->render('blog/detail.html.twig', [
             'blog' => $blog
 
         ]);
-
-        return new Response($html);
     }
 
     /**
-     * @Route("/blog")
+     * @Route("/blog", name="create_blog")
      */
 
     public function showAction(Request $request)
@@ -60,7 +57,7 @@ class BlogController extends Controller
 
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
-            ->find(2);
+            ->find(6);
 
 
         $blog = new Blog();
@@ -70,23 +67,21 @@ class BlogController extends Controller
 
         $form = $this->createFormBuilder($blog)
             ->add('title', TextType::class, array(
-                'attr' => array('class' => 'form-control', 'placeholder' => 'choose a title'),
+                'attr' => array('class' => 'form-control', 'placeholder' => 'choose a title', 'required' => true),
             ))
             ->add('text', TextareaType::class, array(
-                'attr' => array('class' => 'form-control', 'placeholder' => 'write a story'),
+                'attr' => array('class' => 'form-control', 'placeholder' => 'write a story', 'required' => true),
             ))
             ->add('img', FileType::class, array(
-                'attr' => array('class' => 'fileinput-new'),
+                'attr' => array('class' => 'fileinput-new', 'required' => true),
             ))
             ->add('categories', EntityType::class, array(
+                'attr' => array('required' => true),
                 'class' => 'AppBundle\Entity\Category',
                 'choice_label' => 'name',
                 'multiple' => TRUE,
                 'expanded' => TRUE
-            ))
-            ->add('date', DateType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Blogpost', 'attr' => array('class' => 'btn btn-default')))
-            ->getForm();
+            ))->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,7 +94,6 @@ class BlogController extends Controller
             );
 
 
-
             $blog->setImg($fileName);
 
             $blog = $form->getData();
@@ -107,7 +101,7 @@ class BlogController extends Controller
             $em->persist($blog);
             $em->flush();
 
-            return $this->redirectToRoute('app_home_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('blog/show.html.twig', array(

@@ -10,6 +10,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity
@@ -18,10 +20,20 @@ use Doctrine\ORM\Mapping as ORM;
 class Blog
 {
 
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
     }
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", fetch="EAGER")
+     * @ORM\JoinTable(name="blog_category",
+     * joinColumns={@ORM\JoinColumn(name="blog_id",referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")})
+     */
+    private $categories;
 
 
     /**
@@ -33,6 +45,7 @@ class Blog
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="title  cannot be empty")
      */
     private $title;
 
@@ -46,28 +59,15 @@ class Blog
      */
     private $user;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category")
-     * @ORM\JoinTable(name="blog_category",
-     * joinColumns={@ORM\JoinColumn(name="blog_id",referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
-     *
-     * )
-     */
-    private $categories;
-
-    public function addCategory(Category $category)
-    {
-//        $category->addBlog($this);
-        $this->categories[] = $category;
-    }
 
     /**
      * @return mixed
      */
     public function getCategories()
     {
+
         return $this->categories;
+
     }
 
     /**
@@ -103,9 +103,6 @@ class Blog
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
 
     /**
      * @return mixed
@@ -174,6 +171,7 @@ class Blog
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="text  cannot be empty")
      */
     private $text;
 

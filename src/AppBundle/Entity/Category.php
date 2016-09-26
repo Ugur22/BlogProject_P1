@@ -8,7 +8,6 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -20,13 +19,6 @@ class Category
 {
 
     private $blog;
-
-    public function addBlog(Blog $blog)
-    {
-        $blog->addCategory($this);
-        $this->blog[] = $blog;
-    }
-
 
     /**
      * @return mixed

@@ -9,14 +9,20 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @UniqueEntity(fields={"email"}, message="This email is already taken")
+ * @UniqueEntity(fields={"username"}, message="This username is already taken")
  */
-class User
+class User implements UserInterface
 {
+
 
     /**
      * @ORM\Id
@@ -136,22 +142,53 @@ class User
 
     /**
      * @ORM\Column(type="string")
+     *  * @Assert\NotBlank(message="firstname  cannot be empty")
      */
     private $firstname;
     /**
      * @ORM\Column(type="string")
+     *  * @Assert\NotBlank(message="Username  cannot be empty")
      */
     private $surname;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="surname  cannot be empty")
      */
     private $username;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Email  cannot be empty")
+     * @Assert\Email()
      */
     private $email;
+
     /**
-     * @ORM\Column(type="string")
+     * @Assert\NotBlank(groups={"Registration"}, message="Password cannot be empty")
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
+     *
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
     /**
@@ -159,4 +196,42 @@ class User
      */
     private $role;
 
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 }

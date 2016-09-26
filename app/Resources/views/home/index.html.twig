@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
     <h1>Take a look at our inspiring stories</h1>
-
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {{ flashMessage }}
+    {% endfor %}
     <div class="row">
         {% for blog in blogs %}
             <div class="col-sm-6 col-md-4">
@@ -16,7 +16,11 @@
                             <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
                             <span>{{ blog.date|date('d-m-y') }}</span>
                         </div>
-                        <p><a href="/blog/detail/{{ blog.id }} " class="btn btn-primary" role="button">Read more...</a></p>
+                        {#<span>{{ dump(categories )}}</span>#}
+                        <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}" class="btn btn-primary"
+                              role="button">Read
+                                more...</a>
+                        </p>
                     </div>
                 </div>
             </div>
