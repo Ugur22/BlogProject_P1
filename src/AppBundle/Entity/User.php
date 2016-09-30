@@ -17,8 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
- * @UniqueEntity(fields={"email"}, message="This email is already taken")
- * @UniqueEntity(fields={"username"}, message="This username is already taken")
+ * @UniqueEntity( groups={"Registration"},fields={"email"},message="This email is already taken")
  */
 class User implements UserInterface
 {
@@ -56,6 +55,14 @@ class User implements UserInterface
     }
 
     /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
      * @return mixed
      */
     public function getSurname()
@@ -76,15 +83,7 @@ class User implements UserInterface
      */
     public function getUsername()
     {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
+        return $this->email;
     }
 
     /**
@@ -135,24 +134,20 @@ class User implements UserInterface
         $this->role = $role;
     }
 
-    /**
-     * @param mixed $id
-     */
-
 
     /**
      * @ORM\Column(type="string")
-     *  * @Assert\NotBlank(message="firstname  cannot be empty")
+     *  * @Assert\NotBlank(groups={"Registration"},message="firstname  cannot be empty")
      */
     private $firstname;
     /**
      * @ORM\Column(type="string")
-     *  * @Assert\NotBlank(message="Username  cannot be empty")
+     *  * @Assert\NotBlank(groups={"Registration"},message="Username  cannot be empty")
      */
     private $surname;
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="surname  cannot be empty")
+     * @Assert\NotBlank(groups={"Registration"},message="surname  cannot be empty")
      */
     private $username;
     /**

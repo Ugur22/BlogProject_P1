@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class BlogController extends Controller
@@ -55,9 +56,15 @@ class BlogController extends Controller
     public function showAction(Request $request)
     {
 
+
+//        $session = new Session();
+//
+//
+//        $email = $session->get('email');
         $user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->find(6);
+        ->getRepository('AppBundle:User')
+        ->find(26);
+
 
 
         $blog = new Blog();

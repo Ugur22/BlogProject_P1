@@ -31,6 +31,7 @@ textarea {
 .thumbnail a > img, .thumbnail > img {
     width: 500px;
     height: 400px;
+    padding: 10px;
 }
 
 .thumbnail {
@@ -57,8 +58,12 @@ textarea#form_text {
     margin-bottom: 26px;
 }
 
+div#cat {
+    margin-bottom: 15px;
+}
+
 div#author {
-    width: 89px;
+    width: 88px;
     float: right;
 }
 
@@ -69,4 +74,11 @@ div#detailBlog {
 form {
     width: 50%;
     margin: 0 auto;
+}
+
+span#category {
+    background-color: rgba(0,0,0,.09);
+    color: rgba(0,0,0,.6);
+    padding: 10px;
+    border-right: 10px;
 }

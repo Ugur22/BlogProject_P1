@@ -2,34 +2,33 @@
 /**
  * Created by PhpStorm.
  * User: uertas
- * Date: 9/22/16
- * Time: 2:55 PM
+ * Date: 9/30/16
+ * Time: 7:09 PM
  */
 
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Blog;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class HomeController extends Controller
+class CategoryController extends Controller
 {
-
     /**
-     * @Route("/", name="home")
+     * @Route("/category/{categoryId}",name="category_page")
      */
-    public function indexAction()
+
+    public function showAction($categoryId)
     {
         $em = $this->getDoctrine();
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array(), array('date' => 'DESC'));
 
-        return $this->render('home/index.html.twig', [
+        return $this->render(':category:show.html.twig', [
+            'category' => $categoryId,
             'blogs' => $blogs
+
         ]);
 
-
     }
-
 }

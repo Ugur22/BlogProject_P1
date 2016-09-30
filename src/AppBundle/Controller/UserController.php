@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: uertas
- * Date: 9/26/16
- * Time: 12:34 PM
- */
 
 namespace AppBundle\Controller;
-
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
@@ -38,12 +31,31 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', "User Created.");
+
             return $this->redirectToRoute('home');
+
+
         }
         return $this->render(
             ':user:new.html.twig',
             array('form' => $form->createView())
         );
+    }
+
+    /**
+     * @Route("/user/{userId}",name="myblog_page")
+     */
+    public function MyblogsAction($userId)
+    {
+
+        $em = $this->getDoctrine();
+        $blogs = $em->getRepository('AppBundle:Blog')
+            ->findBy(array('user' => $userId), array('date' => 'DESC'));
+
+        return $this->render(':user:myblogs.html.twig', [
+            'userId' => $userId,
+            'blogs' => $blogs
+        ]);
     }
 
 }
