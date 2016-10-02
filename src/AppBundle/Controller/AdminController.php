@@ -29,7 +29,13 @@ class AdminController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('admin/overview.html.twig', array());
+        $em = $this->getDoctrine();
+        $user = $em->getRepository('AppBundle:User')
+            ->findBy(array(), array('firstname' => 'ASC'));
+
+        return $this->render('admin/overview.html.twig', array(
+            'user' => $user
+        ));
 
     }
 

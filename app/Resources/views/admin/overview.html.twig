@@ -2,5 +2,32 @@
 
 {% block body %}
     <h3>Admin Control Panel</h3>
-
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Change Rol</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for u in user %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.firstname }}</td>
+                <td>{{ u.surname }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.roles[0] }}</td>
+                <td><a href="#">Change rol</a></td>
+                <td><a href="#">Edit </a></td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock body %}
