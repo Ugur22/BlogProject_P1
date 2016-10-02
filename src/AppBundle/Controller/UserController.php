@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+
+
     /**
      * @Route("/user/new", name="user_registration")
      */
@@ -37,13 +39,14 @@ class UserController extends Controller
 
         }
         return $this->render(
-            ':user:new.html.twig',
+            'user/new.html.twig',
             array('form' => $form->createView())
         );
     }
 
+
     /**
-     * @Route("/user/{userId}",name="myblog_page")
+     * @Route("/users/{userId}",name="myblog_page")
      */
     public function MyblogsAction($userId)
     {
@@ -54,6 +57,22 @@ class UserController extends Controller
 
         return $this->render(':user:myblogs.html.twig', [
             'userId' => $userId,
+            'blogs' => $blogs
+        ]);
+    }
+
+
+    /**
+     * @Route("/myblog",name="userBlog_page")
+     */
+    public function UserBlogAction()
+    {
+
+        $em = $this->getDoctrine();
+        $blogs = $em->getRepository('AppBundle:Blog')
+            ->findBy(array('user' => 26), array('date' => 'DESC'));
+
+        return $this->render(':user:UserBlog.html.twig', [
             'blogs' => $blogs
         ]);
     }
