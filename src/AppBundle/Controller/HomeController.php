@@ -22,8 +22,19 @@ class HomeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine();
+        $blog = $em->getRepository('AppBundle:Blog')
+            ->findAll();
+        $blogAmount = count($blog);
+
+
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $blogAmount = 5;
+        }
+
+
         $blogs = $em->getRepository('AppBundle:Blog')
-            ->findBy(array(), array('date' => 'DESC'));
+            ->findBy(array(), array('date' => 'DESC'), $blogAmount, 0);
+
 
         return $this->render('home/index.html.twig', [
             'blogs' => $blogs

@@ -186,6 +186,12 @@ class User implements UserInterface
      * the password, but this works well with bcrypt.
      *
      * @ORM\Column(type="string", length=64)
+     * * @Assert\Length(
+     *      min = 6,
+     *      max = 50,
+     *      minMessage = "Your password must be at least {{ limit }} characters long",
+     *      maxMessage = "Your password cannot be longer than {{ limit }} characters"
+     * )
      */
     private $password;
     /**

@@ -1,5 +1,5 @@
 /app/config/parameters.yml
-/.idea/workspace.xml
+.idea/workspace.xml
 /build/
 /phpunit.xml
 /var/*

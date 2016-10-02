@@ -3,6 +3,8 @@
     margin: 10px;
 }
 
+
+
 #createForm button.btn.btn-default {
     margin: 10px;
 }
@@ -53,7 +55,7 @@ textarea#form_text {
 }
 
 .col-sm-6.col-md-4 {
-    width: 660px;
+    width: 700px;
     box-shadow: 10px 10px 5px 10px #888888;
     margin-bottom: 26px;
 }
@@ -63,7 +65,7 @@ div#cat {
 }
 
 div#author {
-    width: 88px;
+    width: 200px;
     float: right;
 }
 
@@ -76,9 +78,21 @@ form {
     margin: 0 auto;
 }
 
+a {
+    cursor: pointer;
+}
+
+div#form_categories {
+    width: 500px;
+}
+
 span#category {
-    background-color: rgba(0,0,0,.09);
-    color: rgba(0,0,0,.6);
+    background-color: rgba(0, 0, 0, .05);
+    color: rgba(0, 0, 0, .6);
     padding: 10px;
     border-right: 10px;
+}
+
+span#category:hover {
+    background-color: rgba(0, 0, 0, .09);
 }

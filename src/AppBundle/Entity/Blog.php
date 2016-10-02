@@ -177,6 +177,7 @@ class Blog
 
     /**
      * @ORM\Column(type="string")
+     * * @Assert\NotBlank(message="You have to choose an image")
      */
     private $img;
 

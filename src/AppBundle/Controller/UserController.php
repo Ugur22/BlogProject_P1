@@ -7,6 +7,7 @@ use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class UserController extends Controller
 {
@@ -51,6 +52,7 @@ class UserController extends Controller
     public function MyblogsAction($userId)
     {
 
+
         $em = $this->getDoctrine();
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array('user' => $userId), array('date' => 'DESC'));
@@ -68,9 +70,18 @@ class UserController extends Controller
     public function UserBlogAction()
     {
 
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $user = $this->getUser();
+        $userId = $accessor->getValue($user, 'id');
+
+
         $em = $this->getDoctrine();
         $blogs = $em->getRepository('AppBundle:Blog')
-            ->findBy(array('user' => 26), array('date' => 'DESC'));
+            ->findBy(array('user' => $userId), array('date' => 'DESC'));
 
         return $this->render(':user:UserBlog.html.twig', [
             'blogs' => $blogs

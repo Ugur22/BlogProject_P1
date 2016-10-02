@@ -15,12 +15,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 
 class BlogController extends Controller
@@ -55,16 +53,17 @@ class BlogController extends Controller
 
     public function showAction(Request $request)
     {
+        $accessor = PropertyAccess::createPropertyAccessor();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
 
+        $user = $this->getUser();
+        $userId = $accessor->getValue($user, 'id');
 
-//        $session = new Session();
-//
-//
-//        $email = $session->get('email');
         $user = $this->getDoctrine()
         ->getRepository('AppBundle:User')
-        ->find(26);
-
+        ->find($userId);
 
 
         $blog = new Blog();
