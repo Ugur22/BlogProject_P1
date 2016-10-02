@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CategoryController extends Controller
 {
@@ -23,6 +24,10 @@ class CategoryController extends Controller
         $em = $this->getDoctrine();
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array(), array('date' => 'DESC'));
+
+        if (!$categoryId) {
+            throw new NotFoundHttpException('Sorry not existing!');
+        }
 
         return $this->render(':category:show.html.twig', [
             'category' => $categoryId,

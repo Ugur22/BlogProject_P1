@@ -25,7 +25,11 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('login') }}">Login</a></li>
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('login') }}">Login</a></li>
+                {% endif %}
                 <li><a href="{{ path('user_registration') }}">Register</a></li>
                 </li>
             </ul>

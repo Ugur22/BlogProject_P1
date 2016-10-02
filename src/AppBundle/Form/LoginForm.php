@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: uertas
+ * Date: 10/2/16
+ * Time: 6:09 PM
+ */
+
+namespace AppBundle\Form;
+
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class LoginForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('_username')
+            ->add('_password', PasswordType::class);
+    }
+
+}

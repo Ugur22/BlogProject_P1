@@ -11,7 +11,7 @@
                                 <h3>{{ blog.title }}</h3>
                                 <p>{{ blog.text |length >200 ? blog.text |slice(0,200) ~ '...': blog.text }}</p>
                                 <div id="author">
-                                    <span><a href="#">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
+                                    <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
                                     <span>{{ blog.date|date('d-m-y') }}</span>
                                 </div>
                                 <div id="cat">

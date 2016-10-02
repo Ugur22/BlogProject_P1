@@ -5,8 +5,9 @@ security:
         AppBundle\Entity\User: bcrypt
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        our_users:
+            entity: { class: AppBundle\Entity\User, property: email }
+
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -16,10 +17,12 @@ security:
 
 
         main:
+            logout:
+                path: /logout
             anonymous: ~
-            form_login:
-                  login_path: login
-                  check_path: login
+            guard:
+                authenticators:
+                - app.security.login_form_authenticator
             # activate different ways to authenticate
 
             # http_basic: ~

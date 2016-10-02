@@ -22,6 +22,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User implements UserInterface
 {
 
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
 
     /**
      * @ORM\Id
@@ -78,13 +85,6 @@ class User implements UserInterface
         $this->surname = $surname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->email;
-    }
 
     /**
      * @return mixed
@@ -142,12 +142,12 @@ class User implements UserInterface
     private $firstname;
     /**
      * @ORM\Column(type="string")
-     *  * @Assert\NotBlank(groups={"Registration"},message="Username  cannot be empty")
+     *  * @Assert\NotBlank(groups={"Registration"},message="surname  cannot be empty")
      */
     private $surname;
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(groups={"Registration"},message="surname  cannot be empty")
+     * @Assert\NotBlank(groups={"Registration"},message=" Username cannot be empty")
      */
     private $username;
     /**
@@ -177,6 +177,8 @@ class User implements UserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        $this->password = null;
     }
 
     /**
@@ -216,7 +218,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return ['ROLE_USER'];
     }
 
     /**
@@ -227,6 +229,6 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = null;
     }
 }
