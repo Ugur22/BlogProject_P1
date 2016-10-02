@@ -1,3 +1,6 @@
-AppBundle\Entity\Category:
-    category_{1..10}:
-        name: <text(8)>
+AppBundle\Entity\user:
+    user{1..10}:
+        email: weaverryan+<current()>@gmail.com
+        plainPassword: iliketurtles
+        Password: pudding
+        roles: ['ROLE_ADMIN']

@@ -25,6 +25,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('admin_page') }}">Control Panel</a></li>
                 {% if is_granted('ROLE_USER') %}
                     <li><a>Welcome, {{ app.user.firstname }}</a></li>
                     <li><a href="{{ path('logout') }}">Logout</a></li>

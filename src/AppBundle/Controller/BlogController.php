@@ -54,9 +54,7 @@ class BlogController extends Controller
     public function showAction(Request $request)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
+
 
         $user = $this->getUser();
         $userId = $accessor->getValue($user, 'id');

@@ -21,6 +21,8 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $user->setRole("user");
+        $role = ["ROLE_USER"];
+        $user->setRoles($role);
 
         $form->handleRequest($request);
 
@@ -35,7 +37,13 @@ class UserController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', "User Created.");
 
-            return $this->redirectToRoute('home');
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('app.security.login_form_authenticator'),
+                    'main'
+                );
 
 
         }
@@ -70,9 +78,6 @@ class UserController extends Controller
     public function UserBlogAction()
     {
 
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
 
         $accessor = PropertyAccess::createPropertyAccessor();
         $user = $this->getUser();

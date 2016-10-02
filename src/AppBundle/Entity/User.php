@@ -46,6 +46,11 @@ class User implements UserInterface
     }
 
     /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
+
+    /**
      * @return mixed
      */
     public function getFirstname()
@@ -186,12 +191,7 @@ class User implements UserInterface
      * the password, but this works well with bcrypt.
      *
      * @ORM\Column(type="string", length=64)
-     * * @Assert\Length(
-     *      min = 6,
-     *      max = 50,
-     *      minMessage = "Your password must be at least {{ limit }} characters long",
-     *      maxMessage = "Your password cannot be longer than {{ limit }} characters"
-     * )
+    @Assert\Range(min=6, minMessage="Password cannot be shorter than 6 characters")
      */
     private $password;
     /**
@@ -224,7 +224,21 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return $roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**

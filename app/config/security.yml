@@ -23,6 +23,10 @@ security:
             guard:
                 authenticators:
                 - app.security.login_form_authenticator
+    access_control:
+        - { path: ^/myblog, roles: ROLE_USER }
+        - { path: ^/blog, roles: ROLE_USER }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
             # http_basic: ~
