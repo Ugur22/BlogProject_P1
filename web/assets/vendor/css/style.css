@@ -3,8 +3,6 @@
     margin: 10px;
 }
 
-
-
 #createForm button.btn.btn-default {
     margin: 10px;
 }
@@ -57,7 +55,7 @@ textarea#form_text {
 .col-sm-6.col-md-4 {
     width: 700px;
     box-shadow: 10px 10px 5px 10px #888888;
-    margin-bottom: 26px;
+    margin-top: 26px;
 }
 
 div#cat {
@@ -78,12 +76,26 @@ form {
     margin: 0 auto;
 }
 
+.col-sm-5 {
+    width: 700px;
+    margin-bottom: -21px;
+    padding: 0px;
+}
+
 td#roles {
     display: -webkit-box;
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     border-top: 0;
+}
+
+p {
+    white-space: pre-wrap;
+}
+
+.panel {
+    border-radius: 0px;
 }
 
 a {

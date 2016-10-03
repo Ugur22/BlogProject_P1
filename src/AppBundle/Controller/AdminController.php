@@ -39,4 +39,25 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * @Route("/admin/allblogs", name="admin_allblogs")
+     */
+    public function allBlogsAction()
+    {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
+
+        $em = $this->getDoctrine();
+        $blog = $em->getRepository('AppBundle:Blog')
+            ->findBy(array(), array('title' => 'ASC'));
+
+        return $this->render(':admin:allBlogs.html.twig', array(
+            'blog' => $blog
+        ));
+
+
+    }
+
 }

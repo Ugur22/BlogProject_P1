@@ -2,6 +2,7 @@
 
 {% block body %}
     <h3>Admin Control Panel</h3>
+    <a href="{{ path('admin_allblogs') }}">All blogs overview</a>
     <table class="table">
         <thead>
         <tr>
@@ -10,7 +11,6 @@
             <th>Surname</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Change Rol</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -23,7 +23,6 @@
                 <td>{{ u.surname }}</td>
                 <td>{{ u.email }}</td>
                 <td>{{ u.roles[0] }}</td>
-                <td><a href="#">Change rol</a></td>
                 <td><a href="#">Edit </a></td>
                 <td><a href="#">Delete</a></td>
             </tr>

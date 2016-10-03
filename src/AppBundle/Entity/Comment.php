@@ -28,10 +28,54 @@ class Comment
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @return mixed
+     */
+    public function getBlog()
+    {
+        return $this->blog;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     /**
      * @ORM\Column(type="text")
      */
     private $text;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Blog", inversedBy="comment")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     */
+    private $blog;
+
+    /**
+     * @param mixed $blog
+     */
+    public function setBlog($blog)
+    {
+        $this->blog = $blog;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $user;
 
     /**
      * @return mixed

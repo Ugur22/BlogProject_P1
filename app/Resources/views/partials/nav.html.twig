@@ -25,14 +25,14 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('admin_page') }}">Control Panel</a></li>
+                <li><a href="{{ path('admin_page') }}">Control Panel(Admin)</a></li>
                 {% if is_granted('ROLE_USER') %}
                     <li><a>Welcome, {{ app.user.firstname }}</a></li>
                     <li><a href="{{ path('logout') }}">Logout</a></li>
                 {% else %}
                     <li><a href="{{ path('login') }}">Login</a></li>
+                    <li><a href="{{ path('user_registration') }}">Register</a></li>
                 {% endif %}
-                <li><a href="{{ path('user_registration') }}">Register</a></li>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

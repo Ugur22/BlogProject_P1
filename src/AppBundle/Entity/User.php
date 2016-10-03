@@ -30,6 +30,10 @@ class User implements UserInterface
         return $this->email;
     }
 
+    public function getnameUser(){
+        return $this->username;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

@@ -24,6 +24,7 @@ class Blog
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     /**
@@ -35,7 +36,27 @@ class Blog
      */
     private $categories;
 
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
 
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="blog")
+     */
+    private $comment;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
