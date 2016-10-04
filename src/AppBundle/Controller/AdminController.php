@@ -9,9 +9,12 @@
 namespace AppBundle\Controller;
 
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Entity\User;
+use AppBundle\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 ///**
 // * @Security("is_granted('ROLE_ADMIN')")
@@ -19,6 +22,48 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 // */
 class AdminController extends Controller
 {
+    /**
+     * @Route("/detailuser/{user_id}" ,name="detailuser")
+     */
+
+    public function detailUserAction(Request $request, $user_id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
+        $user = new User();
+        $form = $this->createForm(UserForm::class, $user);
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')
+            ->find($user_id);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $firstname = $form["firstname"]->getData();
+            $surname = $form["surname"]->getData();
+            $username = $form["username"]->getData();
+            $email = $form["email"]->getData();
+            $roles = $form["roles"]->getData();
+
+            $user->setFirstname($firstname);
+            $user->setSurname($surname);
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setRoles($roles);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+
+        }
+        return $this->render('admin/detailUser.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
+        ));
+
+    }
+
     /**
      * @Route("/admin", name="admin_page")
      */

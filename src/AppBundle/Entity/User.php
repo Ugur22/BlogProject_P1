@@ -30,7 +30,8 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function getnameUser(){
+    public function getnameUser()
+    {
         return $this->username;
     }
 
@@ -127,21 +128,6 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param mixed $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
 
 
     /**
@@ -194,14 +180,11 @@ class User implements UserInterface
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
      *
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, nullable=true)
     @Assert\Range(min=6, minMessage="Password cannot be shorter than 6 characters")
      */
     private $password;
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $role;
+
 
     public function getSalt()
     {

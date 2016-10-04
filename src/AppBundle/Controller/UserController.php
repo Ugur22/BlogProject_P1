@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-        $user->setRole("user");
         $role = ["ROLE_USER"];
         $user->setRoles($role);
 
@@ -78,7 +77,7 @@ class UserController extends Controller
     public function UserBlogAction()
     {
 
-
+        $message = "";
         $accessor = PropertyAccess::createPropertyAccessor();
         $user = $this->getUser();
         $userId = $accessor->getValue($user, 'id');
@@ -88,8 +87,14 @@ class UserController extends Controller
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array('user' => $userId), array('date' => 'DESC'));
 
+
+        if (!count($blogs) > 0) {
+            $message = "You don't have any blogposts yet";
+        }
+
         return $this->render(':user:UserBlog.html.twig', [
-            'blogs' => $blogs
+            'blogs' => $blogs,
+            'message' => $message
         ]);
     }
 

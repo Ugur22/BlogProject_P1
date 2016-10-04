@@ -23,7 +23,7 @@
                 <td>{{ u.surname }}</td>
                 <td>{{ u.email }}</td>
                 <td>{{ u.roles[0] }}</td>
-                <td><a href="#">Edit </a></td>
+                <td><a href="{{ path('detailuser', {'user_id': u.id}) }}">Edit </a></td>
                 <td><a href="#">Delete</a></td>
             </tr>
         {% endfor %}

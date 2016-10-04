@@ -25,37 +25,43 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $comment = new Comment();
-        $accessor = PropertyAccess::createPropertyAccessor();
+        $forms = "";
+
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $comment = new Comment();
+            $accessor = PropertyAccess::createPropertyAccessor();
 
 
-        $user = $this->getUser();
-        $userId = $accessor->getValue($user, 'id');
 
-        $user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->find($userId);
+            $user = $this->getUser();
+            $userId = $accessor->getValue($user, 'id');
 
-        $blog = $this->getDoctrine()
-            ->getRepository('AppBundle:Blog')
-            ->find(array('id' => 21));
+            $user = $this->getDoctrine()
+                ->getRepository('AppBundle:User')
+                ->find($userId);
+
+            $blog = $this->getDoctrine()
+                ->getRepository('AppBundle:Blog')
+                ->find(array('id' => 21));
 
 
-        $comment->setUser($user);
-        $comment->setDate(new \DateTime());
-        $comment->setBlog($blog);
+            $comment->setUser($user);
+            $comment->setDate(new \DateTime());
+            $comment->setBlog($blog);
 
-        $form = $this->createForm(CommentForm::class, $comment);
+            $form = $this->createForm(CommentForm::class, $comment);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
+            $forms = $form->createView();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $comment = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-            return $this->redirectToRoute('home');
+                $comment = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment);
+                $em->flush();
+                return $this->redirectToRoute('home');
+            }
         }
 
         $em = $this->getDoctrine();
@@ -76,7 +82,7 @@ class HomeController extends Controller
 
         return $this->render('home/index.html.twig', [
             'blogs' => $blogs,
-            'form' => $form->createView()
+            'form' => $forms
         ]);
 
 

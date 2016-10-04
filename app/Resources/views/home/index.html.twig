@@ -18,7 +18,8 @@
                         </div>
                         <div id="cat">
                             {% for cat in  blog.categories %}
-                                <span id="category"><a href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
+                                <span id="category"><a
+                                            href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
                             {% endfor %}
                         </div>
                         <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}">read more...</a>
@@ -32,7 +33,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <strong>{{ c.user.getNameUser }}</strong> <span
-                                        class="text-muted">commented {{ c.date|date('d-m-y') }}</span></div>
+                                        class="text-muted">commented {{ c.date|date('d-m-y h:i') }}</span></div>
                             <div class="panel-body">
                                 <p>{{ c.text }}</p>
                             </div>
@@ -43,10 +44,12 @@
             <div class="form-group">
                 <div class="col-sm-5">
                     <div class="panel panel-default">
-                        {{ form_start(form) }}
-                        <span>{{ form_row(form.text) }}</span>
-                        <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
-                        {{ form_end(form) }}
+                        {% if is_granted('ROLE_USER') %}
+                            {{ form_start(form) }}
+                            <span>{{ form_row(form.text) }}</span>
+                            <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
+                            {{ form_end(form) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
