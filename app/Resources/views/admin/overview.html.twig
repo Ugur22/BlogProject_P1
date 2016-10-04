@@ -3,6 +3,7 @@
 {% block body %}
     <h3>Admin Control Panel</h3>
     <a href="{{ path('admin_allblogs') }}">All blogs overview</a>
+    <a href="{{ path('overviewcat') }}">All categories overview</a>
     <table class="table">
         <thead>
         <tr>
@@ -23,8 +24,8 @@
                 <td>{{ u.surname }}</td>
                 <td>{{ u.email }}</td>
                 <td>{{ u.roles[0] }}</td>
-                <td><a href="{{ path('detailuser', {'user_id': u.id}) }}">Edit </a></td>
-                <td><a href="#">Delete</a></td>
+                <td><a href="{{ path('detailuser', {'user_id': u.id}) }}"><i class="small material-icons">edit</i></a></td>
+                <td><a href="{{ path('deleteUser', {'user_id': u.id}) }}"><i class="small material-icons">delete</i></a></td>
             </tr>
         {% endfor %}
         </tbody>

@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -36,7 +37,8 @@ class Category
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank(groups={"Registration"},message=" Username cannot be empty")
      */
     private $name;
 

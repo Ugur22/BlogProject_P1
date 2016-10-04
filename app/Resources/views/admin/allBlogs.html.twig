@@ -2,6 +2,7 @@
 
 {% block body %}
     <h3>Admin Control Panel All Blogs</h3>
+    <a href="{{ path('admin_page') }}">Return to control panel</a>
     <table class="table">
         <thead>
         <tr>
@@ -10,18 +11,26 @@
             <th>Text</th>
             <th>User</th>
             <th>Date</th>
+            <th>Active</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         {% for b in blog %}
             <tr>
-                <td>{{ b.id }}</td>
-                <td>{{ b.title }}</td>
-                <td>{{ b.text |length >200 ? b.text |slice(0,50) ~ '...': b.text }}</td>
-                <td>{{ b.user.username }}</td>
-                <td>{{ b.date|date('d-m-y') }}</td>
-                <td><a href="#">Delete</a></td>
+                <td>{{ b.id |escape}}</td>
+                <td>{{ b.title |escape}}</td>
+                <td>{{ b.text |length >200 ? b.text |slice(0,50) ~ '...': b.text|escape }}</td>
+                <td>{{ b.user.username |escape}}</td>
+                <td>{{ b.date|date('d-m-y')|escape }}</td>
+                <td>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <div class="slider round"></div>
+                    </label>
+                </td>
+                <td><a href="{{ path('deleteBlog', {'blog_id': b.id |escape}) }}"><i class="small material-icons">delete</i></a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
