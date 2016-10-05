@@ -7,7 +7,7 @@
     {{ form_row(form.surname, {'value' : user.surname}) }}
     {{ form_row(form.username , {'value' : user.getnameUser}) }}
     {{ form_row(form.email , {'value' : user.email}) }}
-    {{ form_row(form.roles) }}
+    {{ form_row(form.roles,{'selected': 'selected'}) }}
     <button type="submit" class="btn btn-primary" formnovalidate>Save Changes</button>
     {{ form_end(form) }}
 {% endblock body %}

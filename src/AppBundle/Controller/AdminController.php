@@ -97,11 +97,14 @@ class AdminController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('login');
         }
+
         $user = new User();
         $form = $this->createForm(UserForm::class, $user);
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')
             ->find($user_id);
+        $userRoles = $em->getRepository('AppBundle:User')
+            ->findAll();
 
         $form->handleRequest($request);
 
@@ -113,7 +116,7 @@ class AdminController extends Controller
             $email = $form["email"]->getData();
             $roles = $form["roles"]->getData();
 
-            $user->setFirstname($firstname);
+            $user->setUsername($firstname);
             $user->setSurname($surname);
             $user->setUsername($username);
             $user->setEmail($email);
@@ -125,7 +128,8 @@ class AdminController extends Controller
         }
         return $this->render('admin/detailUser.html.twig', array(
             'form' => $form->createView(),
-            'user' => $user
+            'user' => $user,
+            'userroles' => $userRoles,
         ));
 
     }
@@ -188,6 +192,46 @@ class AdminController extends Controller
         return $this->render(':admin:overviewCategory.html.twig', array(
             'category' => $category
         ));
+    }
+
+    /**
+     * @Route("/blogOff/{blog_id}", name="blogOff")
+     */
+    public function blogOffAction($blog_id)
+    {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $blog = $em->getRepository('AppBundle:Blog')
+            ->find($blog_id);
+
+        $blog->setActive(false);
+        $em->flush();
+        return $this->redirectToRoute('admin_allblogs');
+
+    }
+
+    /**
+     * @Route("/blogOn/{blog_id}", name="blogOn")
+     */
+    public function blogOnAction($blog_id)
+    {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $blog = $em->getRepository('AppBundle:Blog')
+            ->find($blog_id);
+
+        $blog->setActive(true);
+        $em->flush();
+        return $this->redirectToRoute('admin_allblogs');
+
     }
 
 

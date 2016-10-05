@@ -60,13 +60,14 @@ class BlogController extends Controller
         $userId = $accessor->getValue($user, 'id');
 
         $user = $this->getDoctrine()
-        ->getRepository('AppBundle:User')
-        ->find($userId);
+            ->getRepository('AppBundle:User')
+            ->find($userId);
 
 
         $blog = new Blog();
         $blog->setDate(new \DateTime());
         $blog->setUser($user);
+        $blog->setActive(true);
 
 
         $form = $this->createFormBuilder($blog)

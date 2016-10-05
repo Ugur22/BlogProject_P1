@@ -77,7 +77,7 @@ class HomeController extends Controller
 
 
         $blogs = $em->getRepository('AppBundle:Blog')
-            ->findBy(array(), array('date' => 'DESC'), $blogAmount, 0);
+            ->findBy(array('active' => true), array('date' => 'DESC'), $blogAmount, 0);
 
 
         return $this->render('home/index.html.twig', [

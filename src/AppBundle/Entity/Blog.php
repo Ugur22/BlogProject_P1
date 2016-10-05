@@ -65,6 +65,38 @@ class Blog
     private $id;
 
     /**
+     * @return mixed
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param mixed $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="title  cannot be empty")
      */
@@ -74,6 +106,17 @@ class Blog
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likes;
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
