@@ -48,7 +48,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/blog", name="create_blog")
+     * @Route("/blog/create", name="create_blog")
      */
 
     public function showAction(Request $request)

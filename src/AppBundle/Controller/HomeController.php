@@ -15,6 +15,7 @@ use AppBundle\Form\CommentForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class HomeController extends Controller
@@ -31,8 +32,6 @@ class HomeController extends Controller
             $comment = new Comment();
             $accessor = PropertyAccess::createPropertyAccessor();
 
-
-
             $user = $this->getUser();
             $userId = $accessor->getValue($user, 'id');
 
@@ -40,9 +39,10 @@ class HomeController extends Controller
                 ->getRepository('AppBundle:User')
                 ->find($userId);
 
+
             $blog = $this->getDoctrine()
                 ->getRepository('AppBundle:Blog')
-                ->find(array('id' => 21));
+                ->find(21);
 
 
             $comment->setUser($user);
@@ -68,6 +68,7 @@ class HomeController extends Controller
 
         $blog = $em->getRepository('AppBundle:Blog')
             ->findAll();
+
         $blogAmount = count($blog);
 
 
@@ -85,6 +86,31 @@ class HomeController extends Controller
             'form' => $forms
         ]);
 
+    }
+
+    /**
+     * @Route("/addComment/{blog_Id}", name="addComment")
+     */
+    public function addCommentAction($blog_Id)
+    {
+
+    }
+
+    /**
+     * @Route("/addlike/{blog_Id}", name="addlike")
+     */
+    public function addLikesAction($blog_Id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $blog = $em->getRepository('AppBundle:Blog')
+            ->findOneBy(['id' => $blog_Id]);
+
+        $like = $blog->getLikes();
+        $blog->setLikes($like + 1);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
 
     }
 

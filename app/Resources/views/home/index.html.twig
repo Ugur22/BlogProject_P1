@@ -25,6 +25,9 @@
                         <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}">read more...</a>
                         </p>
                     </div>
+                    {% if is_granted('ROLE_USER') %}
+                        <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ blog.likes }}</span>
+                     {% endif %}
                 </div>
             </div>
             <div class="commentSection">
@@ -33,7 +36,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <strong>{{ c.user.getNameUser }}</strong> <span
-                                        class="text-muted">commented {{ c.date|date('d-m-y h:i') }}</span></div>
+                                        class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
                             <div class="panel-body">
                                 <p>{{ c.text }}</p>
                             </div>

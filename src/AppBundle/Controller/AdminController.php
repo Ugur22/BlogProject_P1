@@ -16,7 +16,6 @@ use AppBundle\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
 ///**
@@ -27,13 +26,11 @@ class AdminController extends Controller
 {
 
     /**
-     * @Route("/delete/{user_id}" ,name="deleteUser")
+     * @Route("/admin/delete/{user_id}" ,name="deleteUser")
      */
     public function deleteAction($user_id)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')
             ->find($user_id);
@@ -45,13 +42,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("blog/delete//{blog_id}" ,name="deleteBlog")
+     * @Route("/admin/blog/delete//{blog_id}" ,name="deleteBlog")
      */
     public function deleteCategoryAction($blog_id)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
+
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')
             ->find($blog_id);
@@ -62,13 +57,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/addCategory" ,name="addCategory")
+     * @Route("/admin/addCategory" ,name="addCategory")
      */
     public function addCategory(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
+
 
         $category = new Category();
         $form = $this->createForm(CategoryForm::class, $category);
@@ -89,14 +82,11 @@ class AdminController extends Controller
 
 
     /**
-     * @Route("/detailuser/{user_id}" ,name="detailuser")
+     * @Route("/admin/detailuser/{user_id}" ,name="detailuser")
      */
 
     public function detailUserAction(Request $request, $user_id)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
 
         $user = new User();
         $form = $this->createForm(UserForm::class, $user);
@@ -141,10 +131,6 @@ class AdminController extends Controller
     public function overviewAction()
     {
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
-
         $em = $this->getDoctrine();
         $user = $em->getRepository('AppBundle:User')
             ->findBy(array(), array('firstname' => 'ASC'));
@@ -161,9 +147,6 @@ class AdminController extends Controller
     public function allBlogsAction()
     {
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
 
         $em = $this->getDoctrine();
         $blog = $em->getRepository('AppBundle:Blog')
@@ -181,9 +164,6 @@ class AdminController extends Controller
     public function overviewcatAction()
     {
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
 
         $em = $this->getDoctrine();
         $category = $em->getRepository('AppBundle:Category')
@@ -195,14 +175,11 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/blogOff/{blog_id}", name="blogOff")
+     * @Route("/admin/blogOff/{blog_id}", name="blogOff")
      */
     public function blogOffAction($blog_id)
     {
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')
@@ -215,14 +192,10 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/blogOn/{blog_id}", name="blogOn")
+     * @Route("/admin/blogOn/{blog_id}", name="blogOn")
      */
     public function blogOnAction($blog_id)
     {
-
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('login');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')

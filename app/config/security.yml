@@ -25,7 +25,8 @@ security:
                 - app.security.login_form_authenticator
     access_control:
         - { path: ^/myblog, roles: ROLE_USER }
-        - { path: ^/blog, roles: ROLE_USER }
+        - { path: ^/blog/create, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 #        - { path: ^/admin, roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
