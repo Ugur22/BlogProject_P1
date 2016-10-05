@@ -26,43 +26,6 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $forms = "";
-
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $comment = new Comment();
-            $accessor = PropertyAccess::createPropertyAccessor();
-
-            $user = $this->getUser();
-            $userId = $accessor->getValue($user, 'id');
-
-            $user = $this->getDoctrine()
-                ->getRepository('AppBundle:User')
-                ->find($userId);
-
-
-            $blog = $this->getDoctrine()
-                ->getRepository('AppBundle:Blog')
-                ->find(21);
-
-
-            $comment->setUser($user);
-            $comment->setDate(new \DateTime());
-            $comment->setBlog($blog);
-
-            $form = $this->createForm(CommentForm::class, $comment);
-
-            $form->handleRequest($request);
-            $forms = $form->createView();
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $comment = $form->getData();
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($comment);
-                $em->flush();
-                return $this->redirectToRoute('home');
-            }
-        }
 
         $em = $this->getDoctrine();
 
@@ -82,8 +45,7 @@ class HomeController extends Controller
 
 
         return $this->render('home/index.html.twig', [
-            'blogs' => $blogs,
-            'form' => $forms
+            'blogs' => $blogs
         ]);
 
     }
@@ -91,8 +53,44 @@ class HomeController extends Controller
     /**
      * @Route("/addComment/{blog_Id}", name="addComment")
      */
-    public function addCommentAction($blog_Id)
+    public function addCommentAction($blog_Id, Request $request)
     {
+
+        $comment = new Comment();
+        $accessor = PropertyAccess::createPropertyAccessor();
+
+        $user = $this->getUser();
+        $userId = $accessor->getValue($user, 'id');
+
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find($userId);
+
+
+        $blog = $this->getDoctrine()
+            ->getRepository('AppBundle:Blog')
+            ->find(21);
+
+
+        $comment->setUser($user);
+        $comment->setDate(new \DateTime());
+        $comment->setBlog($blog);
+
+        $form = $this->createForm(CommentForm::class, $comment);
+
+        $form->handleRequest($request);
+        $forms = $form->createView();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+
+        return new Response("commet");
 
     }
 

@@ -26,10 +26,14 @@ class AdminController extends Controller
 {
 
     /**
-     * @Route("/admin/delete/{user_id}" ,name="deleteUser")
+     * @Route("/delete/{user_id}" ,name="deleteUser")
      */
     public function deleteAction($user_id)
     {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')
@@ -42,10 +46,15 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/blog/delete//{blog_id}" ,name="deleteBlog")
+     * @Route("blog/delete//{blog_id}" ,name="deleteBlog")
      */
     public function deleteCategoryAction($blog_id)
     {
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
+
 
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')
@@ -57,11 +66,13 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/addCategory" ,name="addCategory")
+     * @Route("/addCategory" ,name="addCategory")
      */
     public function addCategory(Request $request)
     {
-
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $category = new Category();
         $form = $this->createForm(CategoryForm::class, $category);
@@ -87,6 +98,9 @@ class AdminController extends Controller
 
     public function detailUserAction(Request $request, $user_id)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $user = new User();
         $form = $this->createForm(UserForm::class, $user);
@@ -130,6 +144,9 @@ class AdminController extends Controller
      */
     public function overviewAction()
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine();
         $user = $em->getRepository('AppBundle:User')
@@ -146,6 +163,9 @@ class AdminController extends Controller
      */
     public function allBlogsAction()
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
 
         $em = $this->getDoctrine();
@@ -164,6 +184,9 @@ class AdminController extends Controller
     public function overviewcatAction()
     {
 
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine();
         $category = $em->getRepository('AppBundle:Category')
@@ -180,6 +203,9 @@ class AdminController extends Controller
     public function blogOffAction($blog_id)
     {
 
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')
@@ -192,10 +218,13 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/blogOn/{blog_id}", name="blogOn")
+     * @Route("/blogOn/{blog_id}", name="blogOn")
      */
     public function blogOnAction($blog_id)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('login');
+        }
 
         $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('AppBundle:Blog')
