@@ -58,40 +58,27 @@ class HomeController extends Controller
 
         $comment = new Comment();
         $accessor = PropertyAccess::createPropertyAccessor();
-
         $user = $this->getUser();
         $userId = $accessor->getValue($user, 'id');
-
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find($userId);
-
-
         $blog = $this->getDoctrine()
             ->getRepository('AppBundle:Blog')
-            ->find(21);
+            ->find($blog_Id);
 
-
+        $postData = $request->request->all();
+        $data = $postData['commentText'];
         $comment->setUser($user);
         $comment->setDate(new \DateTime());
         $comment->setBlog($blog);
+        $comment->setText($data);
 
-        $form = $this->createForm(CommentForm::class, $comment);
+        $em = $this->getDoctrine()->getManager();
 
-        $form->handleRequest($request);
-        $forms = $form->createView();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $comment = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-            return $this->redirectToRoute('home');
-        }
-
-        return new Response("commet");
-
+        $em->persist($comment);
+        $em->flush();
+        return $this->redirectToRoute('home');
     }
 
     /**

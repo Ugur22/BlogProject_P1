@@ -183,8 +183,17 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+button.btn.btn-primary {
+    margin: 5px;
+}
+
 span#likes {
     width: 53px;
     float: right;
     height: 48px;
+}
+
+form.pull-right {
+    float: initial!important;
+    margin: 5px;
 }
