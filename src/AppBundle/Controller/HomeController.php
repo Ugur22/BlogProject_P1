@@ -74,11 +74,14 @@ class HomeController extends Controller
         $comment->setBlog($blog);
         $comment->setText($data);
 
-        $em = $this->getDoctrine()->getManager();
+        if (!empty($data)) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
 
-        $em->persist($comment);
-        $em->flush();
         return $this->redirectToRoute('home');
+
     }
 
     /**

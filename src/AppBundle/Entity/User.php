@@ -137,7 +137,7 @@ class User implements UserInterface
     private $firstname;
     /**
      * @ORM\Column(type="string")
-     *  * @Assert\NotBlank(groups={"Registration"},message="surname  cannot be empty")
+     * @Assert\NotBlank(groups={"Registration"},message="surname  cannot be empty")
      */
     private $surname;
     /**
