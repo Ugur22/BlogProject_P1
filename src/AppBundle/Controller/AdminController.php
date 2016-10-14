@@ -16,6 +16,7 @@ use AppBundle\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 ///**
@@ -46,7 +47,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("blog/delete//{blog_id}" ,name="deleteBlog")
+     * @Route("blog/delete/{blog_id}" ,name="deleteBlog")
      */
     public function deleteCategoryAction($blog_id)
     {
@@ -142,18 +143,37 @@ class AdminController extends Controller
     /**
      * @Route("/admin", name="admin_page")
      */
-    public function overviewAction()
+    public function overviewAction(Request $request)
     {
+
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('login');
         }
-
         $em = $this->getDoctrine();
+
+        $postData = $request->request->all();
+
+
         $user = $em->getRepository('AppBundle:User')
             ->findBy(array(), array('firstname' => 'ASC'));
 
+
+        if ($request->isMethod('POST')) {
+            $search = $postData['search'];
+
+            if ($search == "") {
+                $user = $em->getRepository('AppBundle:User')
+                    ->findBy(array(), array('firstname' => 'ASC'));
+            } else {
+                $user = $em->getRepository('AppBundle:User')
+                    ->findBy(array('firstname' => $search), array('firstname' => 'ASC'));
+            }
+        }
+
+
         return $this->render('admin/overview.html.twig', array(
             'user' => $user
+
         ));
 
     }
