@@ -59,6 +59,12 @@ textarea#form_text {
 
 div#cat {
     margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.detailpage div#cat {
+    margin-bottom: 15px;
+    margin-left: 34px;
 }
 
 div#author {
@@ -187,12 +193,16 @@ button.btn.btn-primary {
     margin: 5px;
 }
 
-#detailBlog>h3:first-child {
+#detailBlog > h3:first-child {
     text-align: -webkit-center;
 }
 
 .grayout {
     color: #ccc;
+}
+
+#comments .col-sm-5 {
+    width: 100%;
 }
 
 span#likes {
@@ -202,7 +212,7 @@ span#likes {
 }
 
 form.pull-right {
-    float: initial!important;
+    float: initial !important;
     margin: 5px;
 }
 

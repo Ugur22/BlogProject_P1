@@ -5,7 +5,7 @@
                 <img src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
                 <div class="caption">
                     <h2>{{ blog.title }}</h2>
-                    <p>{{ blog.text|raw|length > 200 ? blog.text|raw|slice(0,200)|raw  : blog.text|raw}}</p>
+                    <p>{{ blog.text|raw|length > 1000 ? blog.text|raw|slice(0,1000)|raw  : blog.text|raw}}...</p>
                     <div id="author">
                         <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
                         <span>{{ blog.date|date('d-m-y') }}</span>
@@ -44,7 +44,7 @@
                     {% if is_granted('ROLE_USER') %}
                         <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
                               class="pull-right">
-                            <input placeholder="Write a comment" class="form-control" type="text" name="commentText">
+                            <input placeholder="Write a response" class="form-control" type="text" name="commentText">
                             <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
                         </form>
                     {% endif %}
