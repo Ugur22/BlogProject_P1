@@ -221,6 +221,27 @@ img#detailImg {
     height: 615px;
 }
 
+.detailpage div#author {
+    margin-right: 133px;
+}
+
+ul#catList {
+    width: 200px;
+    float: left;
+}
+
+ul#catList > li {
+    background-color: rgba(0, 0, 0, .05);
+    color: rgba(0, 0, 0, .6);
+    padding: 10px;
+    margin: 10px;
+    border-right: 10px;
+}
+
+ul#catList > li:hover {
+    background-color: rgba(0, 0, 0, .09);
+}
+
 div#comments {
     margin-top: 97px;
     width: 78%;

@@ -4,5 +4,10 @@
     {% for flashMessage in app.session.flashbag.get('success') %}
         {{ flashMessage }}
     {% endfor %}
+    <ul id="catList">
+        {% for cat in category %}
+            <li id="category"><a href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></li>
+        {% endfor %}
+    </ul>
     {% include 'partials/blogview.html.twig' %}
 {% endblock %}

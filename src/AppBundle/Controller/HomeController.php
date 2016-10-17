@@ -30,6 +30,9 @@ class HomeController extends Controller
         $blog = $em->getRepository('AppBundle:Blog')
             ->findAll();
 
+        $category = $em->getRepository('AppBundle:Category')
+            ->findAll();
+
         $blogAmount = count($blog);
 
 
@@ -43,7 +46,8 @@ class HomeController extends Controller
 
 
         return $this->render('home/index.html.twig', [
-            'blogs' => $blogs
+            'blogs' => $blogs,
+            'category' => $category
         ]);
 
     }
