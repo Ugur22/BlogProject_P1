@@ -16,13 +16,8 @@ use AppBundle\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 
-///**
-// * @Security("is_granted('ROLE_ADMIN')")
-// *
-// */
 class AdminController extends Controller
 {
 
@@ -154,19 +149,17 @@ class AdminController extends Controller
         $postData = $request->request->all();
 
 
-        $user = $em->getRepository('AppBundle:User')
-            ->findBy(array(), array('firstname' => 'ASC'));
-
+        $user = $em->getRepository('AppBundle:User')->findAllUser();
 
         if ($request->isMethod('POST')) {
             $search = $postData['search'];
 
-            if ($search == "") {
-                $user = $em->getRepository('AppBundle:User')
-                    ->findBy(array(), array('firstname' => 'ASC'));
+            $userSearch = $em->getRepository('AppBundle:User')->findUser($search);
+
+            if ($search == "" || !$userSearch) {
+                $user = $em->getRepository('AppBundle:User')->findAllUser();
             } else {
-                $user = $em->getRepository('AppBundle:User')
-                    ->findBy(array('firstname' => $search), array('firstname' => 'ASC'));
+                $user = $em->getRepository('AppBundle:User')->findUser($search);
             }
         }
 
