@@ -11,8 +11,7 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Text</th>
+            <th>title</th>
             <th>User</th>
             <th>Date</th>
             <th>Active</th>
@@ -24,7 +23,6 @@
             <tr>
                 <td>{{ b.id |escape }}</td>
                 <td>{{ b.title |escape }}</td>
-                <td>{{ b.text |length >200 ? b.text |slice(0,50) ~ '...': b.text|escape }}</td>
                 <td>{{ b.user.username |escape }}</td>
                 <td>{{ b.date|date('d-m-y')|escape }}</td>
                 <td>

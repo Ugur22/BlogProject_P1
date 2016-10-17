@@ -21,7 +21,6 @@ input {
 }
 
 #detailBlog p {
-    width: 50%;
 }
 
 textarea {
@@ -68,7 +67,9 @@ div#author {
 }
 
 div#detailBlog {
-    margin-left: 53px;
+    width: 78%;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 form {
@@ -91,7 +92,6 @@ td#roles {
 }
 
 p {
-    white-space: pre-wrap;
 }
 
 .panel {
@@ -187,6 +187,14 @@ button.btn.btn-primary {
     margin: 5px;
 }
 
+#detailBlog>h3:first-child {
+    text-align: -webkit-center;
+}
+
+.grayout {
+    color: #ccc;
+}
+
 span#likes {
     width: 53px;
     float: right;
@@ -196,4 +204,9 @@ span#likes {
 form.pull-right {
     float: initial!important;
     margin: 5px;
+}
+
+img#detailImg {
+    width: 100%;
+    height: 615px;
 }

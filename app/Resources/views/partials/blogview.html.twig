@@ -2,10 +2,10 @@
     {% for blog in blogs %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}">
+                <img src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
                 <div class="caption">
-                    <h3>{{ blog.title }}</h3>
-                    <p>{{ blog.text |length >200 ? blog.text|striptags('<b>,<a>,<pre>')|raw|slice(0,200) ~ '...': blog.text }}</p>
+                    <h2>{{ blog.title }}</h2>
+                    <p>{{ blog.text|raw|length > 200 ? blog.text|raw|slice(0,200)|raw  : blog.text|raw}}</p>
                     <div id="author">
                         <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
                         <span>{{ blog.date|date('d-m-y') }}</span>
@@ -42,7 +42,8 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     {% if is_granted('ROLE_USER') %}
-                        <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST" class="pull-right">
+                        <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
+                              class="pull-right">
                             <input placeholder="Write a comment" class="form-control" type="text" name="commentText">
                             <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
                         </form>

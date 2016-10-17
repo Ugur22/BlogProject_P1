@@ -183,7 +183,7 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine();
         $blog = $em->getRepository('AppBundle:Blog')
-            ->findBy(array(), array('title' => 'ASC'));
+            ->findBy(array(), array('date' => 'ASC'));
 
         return $this->render(':admin:allBlogs.html.twig', array(
             'blog' => $blog
