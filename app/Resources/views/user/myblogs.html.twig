@@ -1,27 +1,4 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="row">
-        {% for blog in blogs %}
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}">
-                    <div class="caption">
-                        <h3>{{ blog.title }}</h3>
-                        <p>{{ blog.text |length >200 ? blog.text |slice(0,200) ~ '...': blog.text }}</p>
-                        <div id="author">
-                            <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
-                            <span>{{ blog.date|date('d-m-y') }}</span>
-                        </div>
-                        <div id="cat">
-                            {% for cat in  blog.categories %}
-                                <span id="category"><a href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
-                            {% endfor %}
-                        </div>
-                        <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}">read more...</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    {% include 'partials/blogview.html.twig' %}
 {% endblock %}

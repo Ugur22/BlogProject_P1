@@ -4,7 +4,7 @@
     <div id="detailBlog">
         <img src="{{ asset('assets/vendor/img/') }}{{ blog.img }}">
         <h3>{{ blog.title }}</h3>
-        <p>{{ blog.text }}</p>
+        <p>{{ blog.text|striptags('<b>,<a>,<pre>')|raw}}</p>
         <span>{{ blog.user.firstname }} {{ blog.user.surname }} </span>
         <span>{{ blog.date|date('d-m-y') }}</span>
     </div>
