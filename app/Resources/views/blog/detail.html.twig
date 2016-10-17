@@ -10,6 +10,9 @@
     <div id="author">
         <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
         <span>{{ blog.date|date('d-m-y') }}</span>
+        {% if is_granted('ROLE_USER') %}
+            <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ blog.likes }}</span>
+        {% endif %}
     </div>
     <div id="cat">
         {% for cat in  blog.categories %}
@@ -17,9 +20,7 @@
                         href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
         {% endfor %}
     </div>
-    {% if is_granted('ROLE_USER') %}
-        <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ blog.likes }}</span>
-    {% endif %}
+
     <div id="comments">
         <div class="commentSection">
             {% for c in blog.comment %}

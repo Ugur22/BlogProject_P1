@@ -64,7 +64,7 @@ div#cat {
 
 .detailpage div#cat {
     margin-bottom: 15px;
-    margin-left: 34px;
+    margin-left: 149px;
 }
 
 div#author {
@@ -219,4 +219,10 @@ form.pull-right {
 img#detailImg {
     width: 100%;
     height: 615px;
+}
+
+div#comments {
+    margin-top: 97px;
+    width: 78%;
+    margin: 0 auto;
 }

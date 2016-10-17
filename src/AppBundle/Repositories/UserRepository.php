@@ -20,7 +20,6 @@ class UserRepository extends EntityRepository
             ->where($qb->expr()->like('u.firstname', ':search'))
             ->orWhere($qb->expr()->like('u.surname', ':search'))
             ->orWhere($qb->expr()->like('u.email', ':search'))
-            ->orWhere($qb->expr()->like('u.roles', ':search'))
             ->setParameter('search', '%' . $search . '%')
             ->orderBy('u.firstname');
 
