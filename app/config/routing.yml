@@ -6,10 +6,5 @@ user_registration:
   path: /user/new
   defaults: {_controller: AppBundle:User:new}
 
-#test:
-#  path: /test
-#  defaults: { _controller: AppBundle:Admin:test }
-#  options:
-#      expose: true
 fos_js_routing:
       resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

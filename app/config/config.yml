@@ -10,6 +10,8 @@ parameters:
     images_directory: '%kernel.root_dir%/../web/assets/vendor/uploads'
 
 framework:
+    serializer:
+        enabled: true
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
