@@ -19,9 +19,6 @@
                     <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}">read more...</a>
                     </p>
                 </div>
-                {% if is_granted('ROLE_USER') %}
-                    <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ blog.likes }}</span>
-                {% endif %}
             </div>
         </div>
         <div class="commentSection">

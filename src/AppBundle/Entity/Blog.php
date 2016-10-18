@@ -64,21 +64,6 @@ class Blog
      */
     private $id;
 
-    /**
-     * @return mixed
-     */
-    public function getLikes()
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param mixed $likes
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-    }
 
     /**
      * @return mixed
@@ -106,11 +91,6 @@ class Blog
      * @ORM\Column(type="datetime")
      */
     private $date;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $likes;
 
 
     /**
@@ -244,7 +224,6 @@ class Blog
      * * @Assert\NotBlank(message="You have to choose an image")
      */
     private $img;
-
 
 
     /**

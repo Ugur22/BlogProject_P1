@@ -27,7 +27,6 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $blogs = new Blog();
         $em = $this->getDoctrine();
 
         $blog = $em->getRepository('AppBundle:Blog')
@@ -36,7 +35,6 @@ class HomeController extends Controller
         $category = $em->getRepository('AppBundle:Category')
             ->findAll();
 
-        $countlikes = $em->getRepository('AppBundle:User_like')->findAll();
 
 
 
@@ -56,7 +54,6 @@ class HomeController extends Controller
         return $this->render('home/index.html.twig', [
             'blogs' => $blogs,
             'category' => $category,
-            'countlikes' => $countlikes
         ]);
 
     }

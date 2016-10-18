@@ -26,6 +26,33 @@
                     </div>
                 {% endif %}
             {% endfor %}
+            <div class="commentSection">
+                {% for c in blog.comment %}
+                    <div class="col-sm-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{{ c.user.getNameUser }}</strong> <span
+                                        class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
+                            <div class="panel-body">
+                                <p>{{ c.text }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        {% if is_granted('ROLE_USER') %}
+                            <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
+                                  class="pull-right" id="form">
+                                <input placeholder="Write a response" class="form-control" type="text" name="commentText">
+                                <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

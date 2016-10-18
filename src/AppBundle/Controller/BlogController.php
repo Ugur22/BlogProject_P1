@@ -29,11 +29,11 @@ class BlogController extends Controller
      */
     public function detailAction($blog_id)
     {
-        $blog = $this->getDoctrine()
-            ->getRepository('AppBundle:Blog')
+        $em = $this->getDoctrine();
+        $blog = $em->getRepository('AppBundle:Blog')
             ->findOneBy(['id' => $blog_id]);
 
-
+        $countlikes = $em->getRepository('AppBundle:User_like')->countLikesPost($blog_id);
         if (!$blog) {
             throw  $this->createNotFoundException(
                 'No blog found for id ' . $blog_id
@@ -42,7 +42,8 @@ class BlogController extends Controller
 
 
         return $this->render('blog/detail.html.twig', [
-            'blog' => $blog
+            'blog' => $blog,
+            'countlikes' => $countlikes
 
         ]);
     }
