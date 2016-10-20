@@ -22,8 +22,7 @@ class CategoryController extends Controller
     public function showAction($categoryId)
     {
         $em = $this->getDoctrine();
-        $blogs = $em->getRepository('AppBundle:Blog')
-            ->findBy(array(), array('date' => 'DESC'));
+        $blogs = $em->getRepository('AppBundle:Blog')->getBlogsCategory($categoryId);
 
         if (!$categoryId) {
             throw new NotFoundHttpException('Sorry not existing!');

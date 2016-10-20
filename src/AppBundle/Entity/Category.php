@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="category")
  */
 class Category

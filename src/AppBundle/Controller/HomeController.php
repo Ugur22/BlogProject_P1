@@ -28,16 +28,12 @@ class HomeController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine();
-
         $blog = $em->getRepository('AppBundle:Blog')
             ->findAll();
 
+
         $category = $em->getRepository('AppBundle:Category')
             ->findAll();
-
-
-
-
 
         $blogAmount = count($blog);
 
@@ -50,7 +46,6 @@ class HomeController extends Controller
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array('active' => true), array('date' => 'DESC'), $blogAmount, 0);
 
-
         return $this->render('home/index.html.twig', [
             'blogs' => $blogs,
             'category' => $category,
@@ -58,11 +53,13 @@ class HomeController extends Controller
 
     }
 
+
     /**
      * @Route("/addComment/{blog_Id}", name="addComment")
      */
     public function addCommentAction($blog_Id, Request $request)
     {
+
 
         $comment = new Comment();
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -88,18 +85,10 @@ class HomeController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($comment);
                 $em->flush();
-
-
             }
 
-
         }
-        $response = new Response();
-        $response->setContent(json_encode(array(
-            'data' => 123,
-        )));
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        return $this->redirectToRoute('home');
 
     }
 

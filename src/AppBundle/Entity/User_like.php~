@@ -42,7 +42,7 @@ class User_like
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Blog", inversedBy="user_like")
-     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id" ,onDelete="cascade")
      */
     private $blog;
 
@@ -80,7 +80,7 @@ class User_like
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="user_like")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",onDelete="cascade")
      */
     private $user;
 

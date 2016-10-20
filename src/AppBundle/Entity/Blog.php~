@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repositories\BlogRepository")
  * @ORM\Table(name="blog")
  */
 class Blog
@@ -64,21 +64,6 @@ class Blog
      */
     private $id;
 
-    /**
-     * @return mixed
-     */
-    public function getLikes()
-    {
-        return $this->likes;
-    }
-
-    /**
-     * @param mixed $likes
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-    }
 
     /**
      * @return mixed
@@ -106,11 +91,6 @@ class Blog
      * @ORM\Column(type="datetime")
      */
     private $date;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $likes;
 
 
     /**
@@ -246,4 +226,51 @@ class Blog
     private $img;
 
 
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Blog
+     */
+    public function addCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Blog
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
 }

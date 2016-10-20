@@ -24,12 +24,27 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class BlogController extends Controller
 {
 
+    function read_time($text)
+    {
+        $words = str_word_count(strip_tags($text));
+        $min = floor($words / 200);
+        if ($min === 0) {
+            return '1 min read';
+        }
+        return $min . 'min read';
+
+    }
+
     /**
      * @Route("/blog/detail/{blog_id}", name="blog_detail")
      */
     public function detailAction($blog_id)
     {
+
+
         $em = $this->getDoctrine();
+
+
         $blog = $em->getRepository('AppBundle:Blog')
             ->findOneBy(['id' => $blog_id]);
 
@@ -41,9 +56,13 @@ class BlogController extends Controller
         }
 
 
+        $readTime = $this->read_time($blog->getText());
+
+
         return $this->render('blog/detail.html.twig', [
             'blog' => $blog,
-            'countlikes' => $countlikes
+            'countlikes' => $countlikes,
+            'readtime' => $readTime
 
         ]);
     }

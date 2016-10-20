@@ -3,53 +3,54 @@
 {% block body %}
     <img id="detailImg" src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
     <div class="detailpage">
-    <div id="detailBlog">
-        <h3>{{ blog.title }}</h3>
-        <article>{{ blog.text|raw }}</article>
-    </div>
-    <div id="author">
-        <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
-        <span>{{ blog.date|date('d-m-y') }}</span>
-        {% if is_granted('ROLE_USER') %}
-            <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ countlikes[0][1] }}</span>
-        {% endif %}
-    </div>
-    <div id="cat">
-        {% for cat in  blog.categories %}
-            <span id="category"><a
-                        href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
-        {% endfor %}
-    </div>
+        <div id="detailBlog">
+            <h3>{{ blog.title }}</h3>
+            <article>{{ blog.text|raw }}</article>
+        </div>
+        <div id="author">
+            <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
+            <span>{{ blog.date|date('d-m-y') }}</span>
+            {% if is_granted('ROLE_USER') %}
+                <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ countlikes[0][1] }}</span>
+            {% endif %}
+        </div>
+        <div id="cat">
+            {% for cat in  blog.categories %}
+                <span id="category"><a href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
+            {% endfor %}
+            <b>{{ readtime }}</b>
+        </div>
 
-    <div id="comments">
-        <div class="commentSection">
-            {% for c in blog.comment %}
-                <div class="col-sm-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong>{{ c.user.getNameUser }}</strong> <span
-                                    class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
-                        <div class="panel-body">
-                            <p>{{ c.text }}</p>
+        <div id="comments">
+            <div class="commentSection">
+                {% for c in blog.comment %}
+                    <div class="col-sm-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{{ c.user.getNameUser }}</strong> <span
+                                        class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
+                            <div class="panel-body">
+                                <p>{{ c.text }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="form-group">
-            <div class="col-sm-5">
-                <div class="panel panel-default">
-                    {% if is_granted('ROLE_USER') %}
-                        <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
-                              class="pull-right">
-                            <input placeholder="Write a response" class="form-control" type="text" name="commentText">
-                            <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
-                        </form>
-                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        {% if is_granted('ROLE_USER') %}
+                            <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
+                                  class="pull-right">
+                                <input placeholder="Write a response" class="form-control" type="text"
+                                       name="commentText">
+                                <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}
 

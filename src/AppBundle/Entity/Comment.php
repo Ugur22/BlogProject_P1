@@ -54,7 +54,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Blog", inversedBy="comment")
-     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id",  onDelete="cascade")
      */
     private $blog;
 
@@ -76,6 +76,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",  onDelete="cascade")
      */
     private $user;
 
