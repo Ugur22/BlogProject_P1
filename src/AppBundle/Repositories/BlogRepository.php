@@ -14,21 +14,24 @@ class BlogRepository extends EntityRepository
 {
 
 
-    public function findRelatedBlogs()
+    public function findRelatedBlogs($blog_Id)
     {
 
         $qbCat = $this->_em->createQueryBuilder();
         $qbCat->select('ca.id')
             ->from('AppBundle:Blog', 'bl')
             ->join('bl.categories', 'ca')
-            ->where('bl.id = 37');
+            ->where('bl.id =:blogid')
+            ->setParameter('blogid', $blog_Id);
 
         $qb = $this->_em->createQueryBuilder();
-        $qb->select('b.id', 'b.title')
+        $qb->select('b')
             ->from('AppBundle:Blog', 'b')
             ->join('b.categories', 'c')
             ->where($qb->expr()->in('c.id', $qbCat->getDQL()))
-            ->andWhere('b.id != 37');
+            ->andWhere('b.id !=:blogid')
+            ->setMaxResults(3)
+            ->setParameter('blogid', $blog_Id);
         return $qb->getQuery()->getResult();
 
 

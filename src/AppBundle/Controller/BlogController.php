@@ -44,6 +44,7 @@ class BlogController extends Controller
 
         $em = $this->getDoctrine();
 
+        $categoriesBlog = $em->getRepository('AppBundle:Blog')->findRelatedBlogs($blog_id);
 
         $blog = $em->getRepository('AppBundle:Blog')
             ->findOneBy(['id' => $blog_id]);
@@ -62,7 +63,8 @@ class BlogController extends Controller
         return $this->render('blog/detail.html.twig', [
             'blog' => $blog,
             'countlikes' => $countlikes,
-            'readtime' => $readTime
+            'readtime' => $readTime,
+            'catblogs' => $categoriesBlog
 
         ]);
     }

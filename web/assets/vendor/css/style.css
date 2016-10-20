@@ -242,6 +242,35 @@ ul#catList > li:hover {
     background-color: rgba(0, 0, 0, .09);
 }
 
+div#commentAdd {
+    margin-bottom: 45px;
+}
+
+h2 {
+    text-align: -webkit-center;
+    padding: 7px;
+}
+
+div#recCol {
+    width: 418px;
+    box-shadow: 4px 4px 4px 4px;
+    margin-left: 21px;
+    height: 600px;
+}
+
+div#recRow {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.detailpage {
+    margin-bottom: 200px;
+}
+
+div#catRec {
+    float: right;
+}
+
 div#comments {
     margin-top: 97px;
     width: 78%;

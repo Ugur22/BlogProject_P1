@@ -2,6 +2,7 @@
 
 {% block body %}
     <img id="detailImg" src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
+    {{ dump(catblogs) }}
     <div class="detailpage">
         <div id="detailBlog">
             <h3>{{ blog.title }}</h3>
@@ -16,7 +17,8 @@
         </div>
         <div id="cat">
             {% for cat in  blog.categories %}
-                <span id="category"><a href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
+                <span id="category"><a
+                            href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
             {% endfor %}
             <b>{{ readtime }}</b>
         </div>
@@ -38,7 +40,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-5">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="commentAdd">
                         {% if is_granted('ROLE_USER') %}
                             <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
                                   class="pull-right">
@@ -50,6 +52,31 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <h2>Recommended Articles</h2>
+        <div class="row" id="recRow">
+            {% for blog in catblogs %}
+                <div class="col-sm-6 col-md-4" id="recCol">
+                    <div class="thumbnail">
+                        <img src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
+                        <div class="caption">
+                            <h3>{{ blog.title }}</h3>
+                            <div id="authorRec">
+                                <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
+                                <span>{{ blog.date|date('d-m-y') }}</span>
+                            </div>
+                            <div id="catRec">
+                                {% for cat in  blog.categories %}
+                                    <span id="category"><a
+                                                href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
+                                {% endfor %}
+                            </div>
+                            <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}" class="btn btn-primary" role="button">Read more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
