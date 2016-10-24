@@ -16,14 +16,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class HomeController extends Controller
 {
 
     /**
-     * @Route("/", name="home",  options={"expose"=true},)
+     * @Route("/", name="home", options={"expose"=true})
      */
     public function indexAction(Request $request)
     {
@@ -45,51 +44,49 @@ class HomeController extends Controller
 
         $blogs = $em->getRepository('AppBundle:Blog')
             ->findBy(array('active' => true), array('date' => 'DESC'), $blogAmount, 0);
-
         return $this->render('home/index.html.twig', [
             'blogs' => $blogs,
-            'category' => $category,
+            'category' => $category
         ]);
 
     }
 
 
     /**
-     * @Route("/addComment/{blog_Id}", name="addComment")
+     * @Route("/addComment/{blog_Id}", name="addComment",options={"expose"=true})
      */
     public function addCommentAction($blog_Id, Request $request)
     {
-
-
         $comment = new Comment();
         $accessor = PropertyAccess::createPropertyAccessor();
         $user = $this->getUser();
         $userId = $accessor->getValue($user, 'id');
+
+
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find($userId);
         $blog = $this->getDoctrine()
             ->getRepository('AppBundle:Blog')
             ->find($blog_Id);
-
-        $postData = $request->request->all();
-        $data = $postData['commentText'];
+        $data = $request->request->get('data');
+        $date = new \DateTime();
+        $date->format('Y-m-d H:i');
         $comment->setUser($user);
-        $comment->setDate(new \DateTime());
+        $comment->setDate($date);
         $comment->setBlog($blog);
         $comment->setText($data);
-
-
         if ($request->isMethod('POST')) {
             if (!empty($data)) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($comment);
                 $em->flush();
             }
-
         }
-        return $this->redirectToRoute('home');
+        $comments = $this->getDoctrine()
+            ->getRepository('AppBundle:Blog')->getBlogById($blog_Id);
 
+        return new JsonResponse($comments);
     }
 
     /**

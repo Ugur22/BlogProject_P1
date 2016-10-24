@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="blogs">
     {% for blog in blogs %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
@@ -21,13 +21,13 @@
                 </div>
             </div>
         </div>
-        <div class="commentSection">
+        <div class="commentSection" id="commentOutput">
             {% for c in blog.comment %}
                 <div class="col-sm-5">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong>{{ c.user.getNameUser }}</strong> <span
-                                    class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
+                            <strong>{{ c.user.getNameUser }}</strong>
+                            <span class="text-muted">commented {{ c.date|date('d-m-y H:i') }}</span></div>
                         <div class="panel-body">
                             <p>{{ c.text }}</p>
                         </div>
@@ -39,10 +39,10 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     {% if is_granted('ROLE_USER') %}
-                        <form action="{{ path('addComment', {'blog_Id': blog.id |escape}) }}" method="POST"
+                        <form action="{{ path('addComment', {'blog_Id': blog.id }) }}" method="POST"
                               class="pull-right" id="form">
-                            <input placeholder="Write a response" class="form-control" type="text" name="commentText">
-                            <button type="submit" class="btn btn-primary" formnovalidate>Add Comment</button>
+                            <input placeholder="Write a response" id="Commenttext" class="form-control" type="text"
+                                   name="commentText">
                         </form>
                     {% endif %}
                 </div>

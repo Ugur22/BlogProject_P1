@@ -37,6 +37,20 @@ class BlogRepository extends EntityRepository
 
     }
 
+    public function getBlogById($blog_Id)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('c', 'u.username')
+            ->from('AppBundle:comment', 'c')
+            ->join('c.blog', 'b')
+            ->join('c.user', 'u')
+            ->where('b.id =:blogid')
+            ->setParameter('blogid', $blog_Id);
+        $comment = $qb->getQuery()->getArrayResult();
+
+        return $comment;
+    }
+
     public function getBlogsCategory($categoryId)
     {
         $qb = $this->_em->createQueryBuilder();
