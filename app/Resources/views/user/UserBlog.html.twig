@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/js/Ajax.js') }}"></script>
+{% endblock %}
 {% block body %}
     <h1>  {{ message }}</h1>
     <h3><a href="{{ path('create_blog') }}">Write a blog.. <span

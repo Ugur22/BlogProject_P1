@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/js/Ajax.js') }}"></script>
+{% endblock %}
 {% block body %}
     {% include 'partials/blogview.html.twig' %}
 {% endblock %}

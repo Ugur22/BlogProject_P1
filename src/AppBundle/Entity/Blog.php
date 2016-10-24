@@ -132,6 +132,27 @@ class Blog
     }
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User_like", mappedBy="blog")
+     */
+    private $userLike;
+
+    /**
+     * @return mixed
+     */
+    public function getUserLike()
+    {
+        return $this->userLike;
+    }
+
+    /**
+     * @param mixed $userLike
+     */
+    public function setUserLike($userLike)
+    {
+        $this->userLike = $userLike;
+    }
+
+    /**
      * @param mixed $user
      */
     public function setUser(User $user)
@@ -224,53 +245,4 @@ class Blog
      * * @Assert\NotBlank(message="You have to choose an image")
      */
     private $img;
-
-
-    /**
-     * Add category
-     *
-     * @param \AppBundle\Entity\Category $category
-     *
-     * @return Blog
-     */
-    public function addCategory(\AppBundle\Entity\Category $category)
-    {
-        $this->categories[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \AppBundle\Entity\Category $category
-     */
-    public function removeCategory(\AppBundle\Entity\Category $category)
-    {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Add comment
-     *
-     * @param \AppBundle\Entity\Comment $comment
-     *
-     * @return Blog
-     */
-    public function addComment(\AppBundle\Entity\Comment $comment)
-    {
-        $this->comment[] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Remove comment
-     *
-     * @param \AppBundle\Entity\Comment $comment
-     */
-    public function removeComment(\AppBundle\Entity\Comment $comment)
-    {
-        $this->comment->removeElement($comment);
-    }
 }

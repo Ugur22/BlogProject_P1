@@ -9,12 +9,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="category")
+ * @UniqueEntity(fields={"name"},message="This name is already taken")
  */
 class Category
 {
@@ -38,7 +40,7 @@ class Category
     private $id;
     /**
      * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank(groups={"Registration"},message=" Username cannot be empty")
+     * @Assert\NotBlank(message=" name cannot be empty")
      */
     private $name;
 

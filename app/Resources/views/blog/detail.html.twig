@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/js/Ajax.js') }}"></script>
+{% endblock %}
 {% block body %}
     <img id="detailImg" src="{{ asset('assets/vendor/uploads/') }}{{ blog.img }}">
     <div class="detailpage">

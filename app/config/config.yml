@@ -8,7 +8,11 @@ imports:
 parameters:
     locale: en
     images_directory: '%kernel.root_dir%/../web/assets/vendor/uploads'
-
+services:
+ twig.extension.text:
+     class: Twig_Extensions_Extension_Text
+     tags:
+         - { name: twig.extension }
 framework:
     serializer:
         enabled: true
