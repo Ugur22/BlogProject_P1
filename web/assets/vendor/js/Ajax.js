@@ -1,7 +1,43 @@
+var anchor = document.getElementsByClassName('like');
 $(document).ready(function () {
+    addComment();
+    for (var i = 0; i < anchor.length; i++) {
+        anchor[i].addEventListener("click", addLike);
+    }
+});
+
+
+function addLike(e) {
+    e.preventDefault();
+    var heart = this.children[0].innerHTML;
+    var anchor = this;
+    var span = anchor.parentNode;
+
+    if (heart == 'favorite') {
+        this.children[0].innerHTML = "favorite_border";
+    } else {
+        this.children[0].innerHTML = "favorite";
+    }
+
+
+    var url = this.getAttribute("href");
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+
+        },
+        error: function (request, error) {
+            console.log("something went wrong");
+        }
+    });
+
+}
+
+function addComment() {
     $("form").submit(function (e) {
         e.preventDefault();
-
         var $form = $(this);
         var url = $form.attr("action");
         var $commentBox = $form.find('.form-control');
@@ -43,9 +79,8 @@ $(document).ready(function () {
                 alert("something went wrong");
             }
         });
-    })
-    ;
-});
+    });
+}
 
 function createDomElement(properties) {
     //Create the element

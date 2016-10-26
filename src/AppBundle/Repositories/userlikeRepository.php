@@ -27,6 +27,21 @@ class userlikeRepository extends EntityRepository
 
     }
 
+    public function findUserLikeId($blog_Id, $userId)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('ul.id')
+            ->from('AppBundle:User_like', 'ul')
+            ->join('ul.blog', 'b')
+            ->join('ul.user', 'u')
+            ->where('b.id =:blogid')
+            ->andWhere('u.id =:userid')
+            ->setParameter('blogid', $blog_Id)
+            ->setParameter('userid', $userId);
+        return $qb->getQuery()->getResult();
+
+    }
+
     public function countLikesPost($blog_Id)
     {
         $qb = $this->_em->createQueryBuilder();
@@ -36,6 +51,18 @@ class userlikeRepository extends EntityRepository
             ->where('b.id =:blogid')
             ->setParameter('blogid', $blog_Id);
         return $qb->getQuery()->getResult();
+
+    }
+
+    public function countLikesPostAjax($blog_Id)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('count(ul.id)')
+            ->from('AppBundle:User_like', 'ul')
+            ->join('ul.blog', 'b')
+            ->where('b.id =:blogid')
+            ->setParameter('blogid', $blog_Id);
+        return $qb->getQuery()->getArrayResult();
 
     }
 

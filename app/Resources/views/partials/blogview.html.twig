@@ -19,7 +19,19 @@
                     <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}">read more...</a>
                     </p>
                     {% if is_granted('ROLE_USER') %}
-                        <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a> {{ blog.userlike|length }}</span>
+                        {% set icon = 'favorite_border' %}
+                        {% for userlike in blog.userlike %}
+                            {% if userlike.user.id == app.user.id %}
+                                {% set userId = userlike.user.id %}
+                                {% if userId == app.user.id %}
+                                    {% set icon = 'favorite' %}
+                                {% else %}
+                                    {% set icon = 'favorite_border' %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <span id="likes" class="likesCount"><a class="like" href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i
+                                        class="material-icons">{{ icon }}</i></a> {{ blog.userlike|length }}</span>
                     {% endif %}
                 </div>
             </div>

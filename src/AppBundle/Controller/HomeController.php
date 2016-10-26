@@ -104,22 +104,36 @@ class HomeController extends Controller
             ->getRepository('AppBundle:Blog')
             ->find($blog_Id);
 
-        $user_like = new User_like();
-        $user_like->setUser($user);
-        $user_like->setBlog($blog);
-
 
         $checkduplicate = $this->getDoctrine()
             ->getRepository('AppBundle:User_like')
             ->findUserLike($blog_Id, $userId);
 
+
+        $like = $this->getDoctrine()
+            ->getRepository('AppBundle:User_like')->findUserLikeId($blog_Id, $userId);
+
+        $countLikes = $this->getDoctrine()
+            ->getRepository('AppBundle:User_like')->countLikesPostAjax($blog_Id);
+
+
         if (!$checkduplicate) {
+            $user_like = new User_like();
+            $user_like->setUser($user);
+            $user_like->setBlog($blog);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user_like);
             $em->flush();
+        } else {
+            $likeId = $like[0]['id'];
+            $likeID = $this->getDoctrine()
+                ->getRepository('AppBundle:User_like')->find($likeId);
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($likeID);
+            $em->flush();
         }
 
-        return $this->redirectToRoute('home');
+        return new JsonResponse($countLikes);
     }
 
 }
