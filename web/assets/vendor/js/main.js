@@ -19,7 +19,6 @@ function searchUser(e) {
         dataType: "json",
         success: function (data) {
             $('#user-table').html("");
-            console.log(data);
             $.each(data, function (index, val) {
                 $('#user-table').append('<tr>' +
                     '<td>' + val.id + '</td>' +
@@ -27,8 +26,8 @@ function searchUser(e) {
                     '<td>' + val.surname + '</td>' +
                     '<td>' + val.email + '</td>' +
                     '<td>' + val.roles[0] + '</td>' +
-                    '<td>' + val.roles[0] + '</td>' +
-                    '<td>' + val.roles[0] + '</td>' +
+                    '<td>' + '<a href="/admin/detailuser/' + val.id + '"><i class="small material-icons">edit</i></a>' + '</td>' +
+                    '<td>' + '<a href="/delete/' + val.id + '"><i class="small material-icons">delete</i></a>' + '</td>' +
                     '</tr>');
             });
         },
