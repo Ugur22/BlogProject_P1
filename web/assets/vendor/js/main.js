@@ -18,8 +18,19 @@ function searchUser(e) {
         data: {"data": userSearch},
         dataType: "json",
         success: function (data) {
-            console.log(data[0]);
-
+            $('#user-table').html("");
+            console.log(data);
+            $.each(data, function (index, val) {
+                $('#user-table').append('<tr>' +
+                    '<td>' + val.id + '</td>' +
+                    '<td>' + val.firstname + '</td>' +
+                    '<td>' + val.surname + '</td>' +
+                    '<td>' + val.email + '</td>' +
+                    '<td>' + val.roles[0] + '</td>' +
+                    '<td>' + val.roles[0] + '</td>' +
+                    '<td>' + val.roles[0] + '</td>' +
+                    '</tr>');
+            });
         },
         error: function (request, error) {
             console.log("something went wrong");

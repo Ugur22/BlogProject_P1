@@ -9,7 +9,7 @@
         <li><a href="{{ path('admin_allblogs') }}">All blogs overview</a></li>
         <li><a href="{{ path('overviewcat') }}">All categories overview</a></li>
     </ul>
-    <form class="navbar-form navbar-left"  id="search-form" action="{{ path('admin_search') }}" method="POST">
+    <form class="navbar-form navbar-left" id="search-form" action="{{ path('admin_search') }}" method="POST">
         <div class="form-group">
             <input type="text" id="user-input" name="search" class="form-control" placeholder="Search" size="150">
         </div>
@@ -27,7 +27,7 @@
             <th>Delete</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="user-table">
         {% for u in user %}
             <tr>
                 <td>{{ u.id }}</td>

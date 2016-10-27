@@ -30,11 +30,13 @@ class UserRepository extends EntityRepository
 
     public function findAllUser()
     {
-        $em = $this->getEntityManager();
-        $user = $em->getRepository('AppBundle:User')
-            ->findBy(array(), array('firstname' => 'ASC'));
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->orderBy('u.firstname');
 
-        return $user;
+        return $qb->getQuery()->getArrayResult();
+
     }
 
 

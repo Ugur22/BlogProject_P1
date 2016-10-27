@@ -147,25 +147,7 @@ class AdminController extends Controller
         }
         $em = $this->getDoctrine();
 
-//        $postData = $request->request->all();
-
-
-        $search = $request->request->get('data');
-        $user = $em->getRepository('AppBundle:User')->findAllUser();
-
-        if ($request->isMethod('POST')) {
-//            $search = $postData['search'];
-
-            $userSearch = $em->getRepository('AppBundle:User')->findUser($search);
-
-            if ($search == "" || !$userSearch) {
-                $user = $em->getRepository('AppBundle:User')->findAllUser();
-            } else {
-                $user = $em->getRepository('AppBundle:User')->findUser($search);
-            }
-        }
-
-        $user = $em->getRepository('AppBundle:User')->findAllUser();
+        $user = $em->getRepository('AppBundle:User')->findBy(array(), array('firstname' => 'ASC'));
         return $this->render('admin/overview.html.twig', array(
             'user' => $user
 
@@ -182,6 +164,7 @@ class AdminController extends Controller
         $search = $request->request->get('data');
 
         if ($request->isMethod('POST')) {
+
 
             if ($search == "") {
                 $user = $em->getRepository('AppBundle:User')->findAllUser();
