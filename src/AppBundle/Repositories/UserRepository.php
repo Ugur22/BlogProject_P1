@@ -23,7 +23,7 @@ class UserRepository extends EntityRepository
             ->setParameter('search', '%' . $search . '%')
             ->orderBy('u.firstname');
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getArrayResult();
 
     }
 

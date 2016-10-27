@@ -15,6 +15,7 @@ use AppBundle\Form\CategoryForm;
 use AppBundle\Form\UserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -146,13 +147,14 @@ class AdminController extends Controller
         }
         $em = $this->getDoctrine();
 
-        $postData = $request->request->all();
+//        $postData = $request->request->all();
 
 
+        $search = $request->request->get('data');
         $user = $em->getRepository('AppBundle:User')->findAllUser();
 
         if ($request->isMethod('POST')) {
-            $search = $postData['search'];
+//            $search = $postData['search'];
 
             $userSearch = $em->getRepository('AppBundle:User')->findUser($search);
 
@@ -163,11 +165,32 @@ class AdminController extends Controller
             }
         }
 
-
+        $user = $em->getRepository('AppBundle:User')->findAllUser();
         return $this->render('admin/overview.html.twig', array(
             'user' => $user
 
         ));
+
+    }
+
+    /**
+     * @Route("/admin/search", name="admin_search")
+     */
+    public function searchUser(Request $request)
+    {
+        $em = $this->getDoctrine();
+        $search = $request->request->get('data');
+
+        if ($request->isMethod('POST')) {
+
+            if ($search == "") {
+                $user = $em->getRepository('AppBundle:User')->findAllUser();
+            } else {
+                $user = $em->getRepository('AppBundle:User')->findUser($search);
+            }
+        }
+
+        return new JsonResponse($user);
 
     }
 

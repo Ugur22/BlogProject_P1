@@ -14,7 +14,19 @@
             <span><a href="{{ path('myblog_page', {'userId': blog.user.id}) }}">{{ blog.user.firstname }} {{ blog.user.surname }}</a></span>
             <span>{{ blog.date|date('d-m-y') }}</span>
             {% if is_granted('ROLE_USER') %}
-                <span id="likes"><a href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i class="material-icons">	favorite</i></a>{{ countlikes[0][1] }}</span>
+                {% set icon = 'favorite_border' %}
+                {% for userlike in blog.userlike %}
+                    {% if userlike.user.id == app.user.id %}
+                        {% set userId = userlike.user.id %}
+                        {% if userId == app.user.id %}
+                            {% set icon = 'favorite' %}
+                        {% else %}
+                            {% set icon = 'favorite_border' %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <span id="likes" class="likesCount"><a class="like" href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i
+                                class="material-icons">{{ icon }}</i></a> {{ blog.userlike|length }}</span>
             {% endif %}
         </div>
         <div id="cat">
@@ -73,7 +85,8 @@
                                                 href="{{ path('category_page', {'categoryId': cat.id}) }}">{{ cat.name }}</a></span>
                                 {% endfor %}
                             </div>
-                            <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}" class="btn btn-primary" role="button">Read more</a>
+                            <p><a href="{{ path('blog_detail', {'blog_id': blog.id}) }}" class="btn btn-primary"
+                                  role="button">Read more</a>
                             </p>
                         </div>
                     </div>

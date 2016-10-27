@@ -4,7 +4,16 @@ $(document).ready(function () {
     for (var i = 0; i < anchor.length; i++) {
         anchor[i].addEventListener("click", addLike);
     }
+    searchUser();
 });
+
+
+function searchUser(e) {
+    e.preventDefault();
+    $("form").submit(function (e) {
+    console.log("search")
+    });
+}
 
 
 function addLike(e) {
