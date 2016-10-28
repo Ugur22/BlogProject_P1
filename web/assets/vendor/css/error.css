@@ -1,0 +1,17 @@
+body {
+    background-image: url("http://www.petmd.com/sites/default/files/finding-lost-cat.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.error {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.error a, h1 {
+    color: white;
+}

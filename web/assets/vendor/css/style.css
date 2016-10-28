@@ -258,6 +258,14 @@ div#recCol {
     height: 667px;
 }
 
+.BlogOn {
+    display: block;
+}
+
+.blogOff {
+    display: none;
+}
+
 div#recRow {
     width: 85%;
     margin: 0 auto;

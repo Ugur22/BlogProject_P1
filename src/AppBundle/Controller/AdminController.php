@@ -92,7 +92,6 @@ class AdminController extends Controller
     /**
      * @Route("/admin/detailuser/{user_id}" ,name="detailuser")
      */
-
     public function detailUserAction(Request $request, $user_id)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {

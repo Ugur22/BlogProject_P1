@@ -22,7 +22,8 @@
                 <td>{{ b.date|date('d-m-y')|escape }}</td>
                 <td>
                     {% if b.active == true %}
-                        <form action="{{ path('blogOff', {'blog_id': b.id |escape}) }}" method="POST" class="pull-right">
+                        <form id="blogOn" action="{{ path('blogOff', {'blog_id': b.id |escape}) }}" method="POST"
+                              class="pull-right">
                             <button type="submit" class="btn btn-success btn-xs">On</button>
                         </form>
                     {% else %}
@@ -31,7 +32,8 @@
                         </form>
                     {% endif %}
                 </td>
-                <td><a href="{{ path('deleteBlog', {'blog_id': b.id |escape}) }}"><i class="small material-icons">delete</i></a>
+                <td><a href="{{ path('deleteBlog', {'blog_id': b.id |escape}) }}"><i
+                                class="small material-icons">delete</i></a>
                 </td>
             </tr>
         {% endfor %}

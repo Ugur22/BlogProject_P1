@@ -36,23 +36,3 @@ function searchUser(e) {
         }
     });
 }
-
-
-function createDomElement(properties) {
-    //Create the element
-    var domElement = document.createElement(properties.tagName);
-
-    //Loop through the attributes to set them on the element
-    var attributes = properties.attributes;
-    for (var prop in attributes) {
-        domElement.setAttribute(prop, attributes[prop]);
-    }
-
-    //If any content, set the inner HTML
-    if (properties.content) {
-        domElement.innerHTML = properties.content;
-    }
-
-    //Return to use in other functions
-    return domElement;
-}

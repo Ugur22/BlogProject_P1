@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'partials/metadata.html.twig' %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/vendor/css/error.css') }}">
+    {% endblock %}
+</head>
+<body>
+<div class="error">
+    <h1>404 Page not found</h1>
+    <button type="button" class="btn btn-primary"><a href="{{ path('home') }}">return to the homepage</a></button>
+</div>
+</body>
+</html>

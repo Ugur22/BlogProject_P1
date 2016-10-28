@@ -50,11 +50,6 @@ class BlogController extends Controller
             ->findOneBy(['id' => $blog_id]);
 
         $countlikes = $em->getRepository('AppBundle:User_like')->countLikesPost($blog_id);
-        if (!$blog) {
-            throw  $this->createNotFoundException(
-                'No blog found for id ' . $blog_id
-            );
-        }
 
 
         $readTime = $this->read_time($blog->getText());
