@@ -1,41 +1,42 @@
 var anchor = document.getElementsByClassName('like');
+var heart;
+var parentAnchor;
+var caption;
+var countlike;
+var like;
+var heartvalue;
+var a = 0;
 $(document).ready(function () {
     addComment();
     for (var i = 0; i < anchor.length; i++) {
         anchor[i].addEventListener("click", addLike);
     }
-    searchUser();
 });
-
-
-function searchUser(e) {
-    e.preventDefault();
-    $("form").submit(function (e) {
-    console.log("search")
-    });
-}
 
 
 function addLike(e) {
     e.preventDefault();
-    var heart = this.children[0].innerHTML;
-    var anchor = this;
-    var span = anchor.parentNode;
-
-    if (heart == 'favorite') {
-        this.children[0].innerHTML = "favorite_border";
-    } else {
-        this.children[0].innerHTML = "favorite";
-    }
-
-
+    heart = this.children[0]
+    heartvalue = this.children[0].innerHTML;
+    parentAnchor = this.parentNode;
+    caption = parentAnchor.closest('.caption');
+    like = caption.children[6];
+    countlike = caption.children[6].innerHTML;
     var url = this.getAttribute("href");
     $.ajax({
         url: url,
         type: "POST",
         dataType: "json",
         success: function (data) {
-
+            if (heartvalue == 'favorite') {
+                heartvalue = "favorite_border";
+                countlike--;
+            } else {
+                heartvalue = "favorite";
+                countlike++;
+            }
+            like.innerHTML = countlike;
+            heart.innerHTML = heartvalue;
         },
         error: function (request, error) {
             console.log("something went wrong");

@@ -30,8 +30,10 @@
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
-                        <span id="likes" class="likesCount"><a class="like" href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i
-                                        class="material-icons">{{ icon }}</i></a> {{ blog.userlike|length }}</span>
+                        <span id="likes"><a class="like"
+                                            href="{{ path('addlike', {'blog_Id':blog.id}) }}"><i
+                                        class="material-icons">{{ icon }}</i></a></span>
+                        likes: <span class="countLike"> {{ blog.userlike|length }}</span>
                     {% endif %}
                 </div>
             </div>
