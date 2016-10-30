@@ -27,7 +27,6 @@ class UserRepository extends EntityRepository
 
     }
 
-
     public function findAllUser()
     {
         $qb = $this->_em->createQueryBuilder();
@@ -35,7 +34,21 @@ class UserRepository extends EntityRepository
             ->from('AppBundle:User', 'u')
             ->orderBy('u.firstname');
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getq();
+
+    }
+
+
+    public function findOnlyUsers()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from('AppBundle:User', 'u')
+            ->where('u.roles = :usertype')
+            ->setParameter('usertype', '["ROLE_USER"]')
+            ->orderBy('u.firstname');
+
+        return $qb->getQuery()->getResult();
 
     }
 

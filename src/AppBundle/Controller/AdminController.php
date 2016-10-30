@@ -146,7 +146,7 @@ class AdminController extends Controller
         }
         $em = $this->getDoctrine();
 
-        $user = $em->getRepository('AppBundle:User')->findBy(array(), array('firstname' => 'ASC'));
+        $user = $em->getRepository('AppBundle:User')->findOnlyUsers();
         return $this->render('admin/overview.html.twig', array(
             'user' => $user
 
