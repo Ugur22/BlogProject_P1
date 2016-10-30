@@ -34,7 +34,7 @@ class UserRepository extends EntityRepository
             ->from('AppBundle:User', 'u')
             ->orderBy('u.firstname');
 
-        return $qb->getQuery()->getq();
+        return $qb->getQuery()->getArrayResult();
 
     }
 
