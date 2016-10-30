@@ -180,7 +180,7 @@ class User implements UserInterface
      * the password, but this works well with bcrypt.
      *
      * @ORM\Column(type="string", length=64, nullable=true)
-    @Assert\Range(min=6, minMessage="Password cannot be shorter than 6 characters")
+     * @Assert\Length(min=6, max=15)
      */
     private $password;
 

@@ -16,7 +16,7 @@ $(document).ready(function () {
 
 function addLike(e) {
     e.preventDefault();
-    heart = this.children[0]
+    heart = this.children[0];
     heartvalue = this.children[0].innerHTML;
     parentAnchor = this.parentNode;
     caption = parentAnchor.closest('.caption');
