@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repositories\UserRepository")
  * @ORM\Table(name="user")
  * @UniqueEntity( groups={"Registration"},fields={"email"},message="This email is already taken")
+ * @UniqueEntity( groups={"Registration"},fields={"username"},message="This username is already taken")
  */
 class User implements UserInterface
 {

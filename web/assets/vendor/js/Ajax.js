@@ -28,14 +28,15 @@ function addLike(e) {
         type: "POST",
         dataType: "json",
         success: function (data) {
+            var likeCount = data[0][1];
             if (heartvalue == 'favorite') {
                 heartvalue = "favorite_border";
-                countlike--;
+                likeCount--;
             } else {
                 heartvalue = "favorite";
-                countlike++;
+                likeCount++;
             }
-            like.innerHTML = countlike;
+            like.innerHTML = likeCount;
             heart.innerHTML = heartvalue;
         },
         error: function (request, error) {
