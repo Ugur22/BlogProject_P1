@@ -20,7 +20,9 @@ class UserRepository extends EntityRepository
             ->where($qb->expr()->like('u.firstname', ':search'))
             ->orWhere($qb->expr()->like('u.surname', ':search'))
             ->orWhere($qb->expr()->like('u.email', ':search'))
+            ->andWhere('u.roles = :usertype')
             ->setParameter('search', '%' . $search . '%')
+            ->setParameter('usertype', '["ROLE_USER"]')
             ->orderBy('u.firstname');
 
         return $qb->getQuery()->getArrayResult();
@@ -32,6 +34,8 @@ class UserRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder();
         $qb->select('u')
             ->from('AppBundle:User', 'u')
+            ->where('u.roles = :usertype')
+            ->setParameter('usertype', '["ROLE_USER"]')
             ->orderBy('u.firstname');
 
         return $qb->getQuery()->getArrayResult();
