@@ -1,11 +1,9 @@
 Blogify
 ==============
 
-This project is written in the Symfony framework.
+This project is written in the Symfony framework. It was my attempt at creating my own version of Medium.
 
-This project was my attempt at creating my own version of Medium.
-
-This project contains the following features:
+This website contains the following features:
 - Posting blogs
 - show blogpost
 - comment on blogsposts
