@@ -1,4 +1,4 @@
-BlogProject_P1
+Blogify
 ==============
 
 This project is written in the Symfony framework.
